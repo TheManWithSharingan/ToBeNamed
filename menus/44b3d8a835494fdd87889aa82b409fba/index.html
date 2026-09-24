@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Menù · Menu</title><style>:root {
+  --color-page: #f6f7f1;
+  --color-ink: #17211d;
+  --color-muted: #65706a;
+  --color-surface: #ffffff;
+  --color-surface-2: #edf4ef;
+  --color-surface-3: #fff8ec;
+  --color-line: #cbd8cf;
+  --color-accent: #0f766e;
+  --color-accent-2: #c84c35;
+  --color-accent-3: #d9a441;
+  --color-alert: #9f2d24;
+  --shadow-soft: 0 18px 52px rgba(20, 34, 29, .12);
+  --radius-card: 8px;
+  --radius-control: 8px;
+  --space-page: clamp(16px, 4vw, 48px);
+  color-scheme: light;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 0;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-page);
+  color: var(--color-ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: var(--space-page);
+}
+
+.menu-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  padding: 32px 0 26px;
+  border-bottom: 2px solid rgba(15, 118, 110, .18);
+}
+
+.venue-kicker {
+  margin: 0 0 8px;
+  color: var(--color-accent);
+  font-size: .82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.venue-name {
+  margin: 0;
+  max-width: 760px;
+  overflow-wrap: anywhere;
+  font-size: 5.35rem;
+  line-height: .92;
+  font-weight: 800;
+}
+
+.venue-tagline {
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.language-field {
+  display: grid;
+  gap: 8px;
+  min-width: 180px;
+  padding: 12px;
+  border: 1px solid rgba(15, 118, 110, .18);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, .72);
+}
+
+.language-field label {
+  color: var(--color-muted);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.language-field select,
+.search-box input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: 0 12px;
+}
+
+.language-field select {
+  font-weight: 800;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 46px;
+  gap: 8px;
+  align-items: center;
+}
+
+.search-submit {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  min-height: 44px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, .18);
+}
+
+.search-submit:hover {
+  background: #0b665f;
+}
+
+.search-icon {
+  width: 19px;
+  height: 19px;
+  color: currentColor;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(220px, .9fr) minmax(0, 1.1fr) minmax(0, 1.2fr) auto;
+  gap: 18px;
+  align-items: start;
+  margin: 22px 0 30px;
+  padding: 18px;
+  border: 1px solid rgba(15, 118, 110, .16);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(237, 244, 239, .78)),
+    var(--color-surface);
+  box-shadow: 0 18px 44px rgba(20, 34, 29, .08);
+}
+
+.control-group {
+  min-width: 0;
+}
+
+.control-title {
+  margin: 0 0 10px;
+  color: var(--color-muted);
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: linear-gradient(180deg, #ffffff, var(--color-surface-3));
+  color: var(--color-ink);
+  padding: 8px 12px 8px 10px;
+  font-size: .9rem;
+  font-weight: 750;
+  line-height: 1.1;
+  box-shadow: 0 8px 20px rgba(20, 34, 29, .06);
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease;
+}
+
+.chip-icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  color: var(--color-accent);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.search-submit .search-icon {
+  color: #ffffff;
+}
+
+.filter-chip:hover {
+  border-color: rgba(15, 118, 110, .45);
+  box-shadow: 0 10px 22px rgba(20, 34, 29, .1);
+}
+
+.filter-chip[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.filter-chip[aria-pressed="true"] .chip-icon {
+  color: #ffffff;
+}
+
+.reset-button {
+  min-height: 44px;
+  align-self: end;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: #ffffff;
+  padding: 0 16px;
+  font-weight: 800;
+}
+
+.menu-grid {
+  display: grid;
+  gap: 34px;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 26px;
+  padding: 22px 0 8px;
+}
+
+.section-heading {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.28rem;
+  line-height: 1.12;
+}
+
+.section-description {
+  margin: 10px 0 0;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.menu-card {
+  min-width: 0;
+  scroll-margin-top: 28px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.menu-card.featured {
+  border-color: rgba(15, 118, 110, .5);
+}
+
+.menu-card.pairing-target {
+  border-color: var(--color-accent-3);
+  box-shadow:
+    0 0 0 4px rgba(217, 164, 65, .26),
+    var(--shadow-soft);
+}
+
+.item-image {
+  width: 100%;
+  aspect-ratio: 40 / 9;
+  object-fit: cover;
+  display: block;
+  background: var(--color-surface-2);
+}
+
+.unknown-allergens, .food-alert { margin: 0; color: var(--color-muted); font-size: .82rem; line-height: 1.5; }
+.safety-note { color: var(--color-muted); font-size: .88rem; line-height: 1.6; max-width: 85ch; }
+body[data-theme="cocktail"] { --color-page: #171c20; --color-surface: #222a30; --color-ink: #f4ede2; --color-muted: #c8c6be; --color-accent: #f2ca7b; --color-line: #596266; --color-surface-2: #363e3e; --color-surface-3: #333738; }
+body[data-theme="cocktail"] .controls, body[data-theme="cocktail"] .language-field { background: var(--color-surface); }
+body[data-theme="cocktail"] .filter-chip { background: var(--color-surface-2); }
+body[data-theme="cocktail"] .filter-chip[aria-pressed="true"], body[data-theme="cocktail"] .reset-button, body[data-theme="cocktail"] .search-submit { background: var(--color-accent); color: #171c20; }
+body[data-theme="cocktail"] .search-icon, body[data-theme="cocktail"] .filter-chip[aria-pressed="true"] .chip-icon { color: #171c20; }
+body[data-theme="bakery"] { --color-page: #fff7f0; --color-accent: #9b3e48; --color-surface-2: #f8e9e6; }
+body[data-theme="cafe"] { --color-page: #faf5eb; --color-accent: #765035; --color-surface-2: #eee6d9; }
+body[data-theme="fine-dining"] { --color-page: #faf9f5; --color-accent: #435343; --shadow-soft: none; --radius-card: 2px; }
+body[data-theme="fine-dining"] .venue-name, body[data-theme="fine-dining"] .section-title { font-family: Georgia, serif; font-weight: 400; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+
+.item-body {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.item-topline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+}
+
+.item-name {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 1.1rem;
+  line-height: 1.18;
+}
+
+.item-price {
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.item-description {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: var(--color-surface-2);
+  color: var(--color-ink);
+  font-size: .76rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.badge.alert {
+  background: #fff0ec;
+  color: var(--color-alert);
+}
+
+.badge.may {
+  background: #fff8dc;
+  color: #76540e;
+}
+
+.pairings {
+  border-top: 1px solid var(--color-line);
+  padding-top: 11px;
+  color: var(--color-muted);
+  font-size: .88rem;
+  line-height: 1.35;
+}
+
+.pairings strong {
+  color: var(--color-ink);
+}
+
+.pairing-link {
+  color: var(--color-accent);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.pairing-link:hover {
+  color: var(--color-accent-2);
+}
+
+.empty-state {
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  color: var(--color-muted);
+  background: var(--color-surface);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(15, 118, 110, .38);
+  outline-offset: 3px;
+}
+
+@media (max-width: 940px) {
+  .venue-name {
+    font-size: 4.15rem;
+  }
+
+  .menu-header,
+  .controls,
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    position: static;
+  }
+
+  .items {
+    grid-template-columns: 1fr;
+  }
+
+  .reset-button {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .venue-name {
+    font-size: 2.85rem;
+  }
+
+  .filter-chip {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .item-topline {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .item-price {
+    white-space: normal;
+  }
+}
+</style></head>
+<body data-theme="restaurant"><!-- moodformenu:44b3d8a835494fdd87889aa82b409fba -->
+<main class="app-shell" id="app" aria-live="polite"></main>
+<noscript>🍽️ Per consultare il menù e usare i filtri, attiva JavaScript.</noscript>
+<script>window.MOOD_MENU_DATA={"schemaVersion": 1, "venue": {"name": "Menù", "type": "restaurant", "city": "", "tagline": {"it": "", "en": "", "fr": "", "de": "", "es": ""}}, "languages": ["it", "en", "fr", "de", "es"], "defaultLanguage": "it", "currency": "EUR", "sections": [{"id": "antipasti", "title": {"it": "ANTIPASTI", "en": "Starters", "fr": "Entrées", "de": "Vorspeisen", "es": "Entrantes"}, "description": {"it": "Antipasti", "en": "Starters", "fr": "Entrées", "de": "Vorspeisen", "es": "Entrantes"}, "items": [{"id": "antipasto-misto", "name": {"it": "ANTIPASTO MISTO", "en": "Mixed Starter", "fr": "Assortiment d'entrées", "de": "Gemischte Vorspeise", "es": "Entremeses variados"}, "description": {"it": "Antipasto misto", "en": "Mixed Starter", "fr": "Assortiment de hors-d'œuvre", "de": "Gemischte Vorspeise", "es": "Entremeses variados"}, "alerts": [], "pairings": [{"itemId": "pane", "label": {"it": "Pane", "en": "Bread", "fr": "Pain", "de": "Brot", "es": "Pan"}, "suggested": true}], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "prosciutto-e-melone", "name": {"it": "PROSCIUTTO E MELONE", "en": "Ham and Melon", "fr": "Jambon et melon", "de": "Schinken und Melone", "es": "Jamón y melón"}, "description": {"it": "Prosciutto e melone", "en": "Ham and Melon", "fr": "Jambon cru et melon", "de": "Rohschinken und Melone", "es": "Jamón serrano y melón"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "antipasto-di-verdure", "name": {"it": "ANTIPASTO DI VERDURE", "en": "Mixed Vegetables Starter", "fr": "Assortiment de légumes", "de": "Gemischte Gemüse-Vorspeise", "es": "Entrante de verduras variadas"}, "description": {"it": "Antipasto di verdure", "en": "Mixed Vegetables Starter", "fr": "Assortiment de légumes", "de": "Gemischte Gemüse-Vorspeise", "es": "Entrante de verduras variadas"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "caprese", "name": {"it": "CAPRESE", "en": "Caprese", "fr": "Caprese", "de": "Caprese", "es": "Caprese"}, "description": {"it": "Pomodori e mozzarella", "en": "Tomatoes and Mozzarella Cheese", "fr": "Tomates et mozzarella", "de": "Tomaten und Mozzarella", "es": "Tomates y mozzarella"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "prosciutto-e-mozzarella", "name": {"it": "PROSCIUTTO E MOZZARELLA", "en": "Ham and Mozzarella", "fr": "Jambon et mozzarella", "de": "Schinken und Mozzarella", "es": "Jamón y mozzarella"}, "description": {"it": "Prosciutto e mozzarella", "en": "Ham and Mozzarella", "fr": "Jambon cru et mozzarella", "de": "Rohschinken und Mozzarella", "es": "Jamón serrano y mozzarella"}, "alerts": [], "pairings": [], "price": "€ 6,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "formaggio-misto", "name": {"it": "FORMAGGIO MISTO", "en": "Mixed Cheese", "fr": "Assortiment de fromages", "de": "Gemischter Käse", "es": "Surtido de quesos"}, "description": {"it": "Formaggio misto", "en": "Mixed Cheese", "fr": "Assortiment de fromages", "de": "Gemischter Käse", "es": "Surtido de quesos"}, "alerts": [], "pairings": [{"itemId": "pane", "label": {"it": "Pane", "en": "Bread", "fr": "Pain", "de": "Brot", "es": "Pan"}, "suggested": true}], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "pane", "name": {"it": "PANE", "en": "Bread", "fr": "Pain", "de": "Brot", "es": "Pan"}, "description": {"it": "Pane", "en": "Bread", "fr": "Pain", "de": "Brot", "es": "Pan"}, "alerts": [], "pairings": [], "price": "€ 1,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "bruschetta-al-pomodoro-cad", "name": {"it": "BRUSCHETTA AL POMODORO (CAD)", "en": "Bruschetta with Tomato (each)", "fr": "Bruschetta à la tomate (l'unité)", "de": "Bruschetta mit Tomaten (Stück)", "es": "Bruschetta de tomate (unidad)"}, "description": {"it": "Pane con pomodori", "en": "Bread with Tomatoes", "fr": "Pain à la tomate", "de": "Brot mit Tomaten", "es": "Pan con tomate"}, "alerts": [], "pairings": [], "price": "€ 1,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "bruschetta-al-prosciutto-cad", "name": {"it": "BRUSCHETTA AL PROSCIUTTO (CAD)", "en": "Bruschetta with Ham (each)", "fr": "Bruschetta au jambon (l'unité)", "de": "Bruschetta mit Schinken (Stück)", "es": "Bruschetta de jamón (unidad)"}, "description": {"it": "Pane con prosciutto", "en": "Bread with Ham", "fr": "Pain au jambon", "de": "Brot mit Schinken", "es": "Pan con jamón"}, "alerts": [], "pairings": [], "price": "€ 2,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}]}, {"id": "primi-piatti", "title": {"it": "PRIMI PIATTI", "en": "First Courses", "fr": "Plats de pâtes et riz", "de": "Erste Gänge", "es": "Primeros platos"}, "description": {"it": "Primi piatti", "en": "First Course", "fr": "Plats de pâtes et riz", "de": "Erste Gänge", "es": "Primeros platos"}, "items": [{"id": "spaghetti-alla-carbonara", "name": {"it": "SPAGHETTI ALLA CARBONARA", "en": "Spaghetti Carbonara", "fr": "Spaghetti Carbonara", "de": "Spaghetti Carbonara", "es": "Espaguetis a la Carbonara"}, "description": {"it": "Spaghetti con uova, guanciale e formaggio", "en": "Spaghetti with eggs, bacon and cheese", "fr": "Spaghetti aux œufs, lardons et fromage", "de": "Spaghetti mit Ei, Speck und Käse", "es": "Espaguetis con huevo, panceta y queso"}, "alerts": [], "pairings": [{"itemId": "insalata-mista", "label": {"it": "Insalata Mista", "en": "Mixed Salad", "fr": "Salade Mixte", "de": "Gemischter Salat", "es": "Ensalada Mixta"}, "suggested": true}], "price": "€ 7,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "spaghetti-all-amatriciana", "name": {"it": "SPAGHETTI ALL'AMATRICIANA", "en": "Spaghetti Amatriciana", "fr": "Spaghetti Amatriciana", "de": "Spaghetti Amatriciana", "es": "Espaguetis a la Amatriciana"}, "description": {"it": "Spaghetti con pomodoro, guanciale e formaggio", "en": "Spaghetti with tomatoes, bacon and cheese", "fr": "Spaghetti à la tomate, lardons et fromage", "de": "Spaghetti mit Tomaten, Speck und Käse", "es": "Espaguetis con tomate, panceta y queso"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "cacio-e-pepe", "name": {"it": "CACIO E PEPE", "en": "Cacio e Pepe", "fr": "Cacio e Pepe", "de": "Cacio e Pepe", "es": "Cacio e Pepe"}, "description": {"it": "Pasta con formaggio e pepe", "en": "Pasta with Pecorino cheese and black pepper", "fr": "Pâtes au fromage et poivre", "de": "Nudeln mit Käse und Pfeffer", "es": "Pasta con queso y pimienta"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "gricia", "name": {"it": "GRICIA", "en": "Gricia", "fr": "Gricia", "de": "Gricia", "es": "Gricia"}, "description": {"it": "Pasta con guanciale e pecorino", "en": "Pasta with bacon and Pecorino cheese", "fr": "Pâtes aux lardons et pecorino", "de": "Nudeln mit Speck und Pecorino-Käse", "es": "Pasta con panceta y queso Pecorino"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "fettuccine-ai-funghi-porcini", "name": {"it": "FETTUCCINE AI FUNGHI PORCINI", "en": "Fettuccine with Porcini Mushrooms", "fr": "Fettuccine aux cèpes", "de": "Fettuccine mit Steinpilzen", "es": "Fettuccine con setas porcini"}, "description": {"it": "Pasta fatta in casa con funghi porcini", "en": "Homemade pasta with porcini mushrooms", "fr": "Pâtes fraîches aux cèpes", "de": "Hausgemachte Nudeln mit Steinpilzen", "es": "Pasta casera con setas porcini"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "fettuccine-alla-boscaiola", "name": {"it": "FETTUCCINE ALLA BOSCAIOLA", "en": "Fettuccine alla Boscaiola", "fr": "Fettuccine alla Boscaiola", "de": "Fettuccine alla Boscaiola", "es": "Fettuccine a la Boscaiola"}, "description": {"it": "Fettuccine con salsa cremosa, funghi, salsiccia e prosciutto", "en": "Flat narrow noodles with cream sauce, mushrooms, sausage and ham", "fr": "Pâtes plates avec sauce crémeuse, champignons, saucisse et jambon", "de": "Breite Bandnudeln mit Sahnesauce, Pilzen, Wurst und Schinken", "es": "Tallarines con salsa cremosa, champiñones, salchicha y jamón"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "cannelloni-di-carne", "name": {"it": "CANNELLONI DI CARNE", "en": "Meat Cannelloni", "fr": "Cannellonis à la viande", "de": "Fleisch-Cannelloni", "es": "Canelones de carne"}, "description": {"it": "Cannelloni fatti in casa ripieni di carne", "en": "Homemade cannelloni with meat filling", "fr": "Cannellonis maison à la viande", "de": "Hausgemachte Cannelloni mit Fleischfüllung", "es": "Canelones caseros de carne"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "ravioli", "name": {"it": "RAVIOLI", "en": "Ravioli", "fr": "Raviolis", "de": "Ravioli", "es": "Raviolis"}, "description": {"it": "Ravioli", "en": "Ravioli", "fr": "Raviolis", "de": "Ravioli", "es": "Raviolis"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "penne-all-arrabbiata", "name": {"it": "PENNE ALL'ARRABBIATA", "en": "Penne all'Arrabbiata", "fr": "Penne all'Arrabbiata", "de": "Penne all'Arrabbiata", "es": "Penne a la Arrabbiata"}, "description": {"it": "Penne in salsa di pomodoro piccante", "en": "Penne pasta in a spicy tomato sauce", "fr": "Pâtes penne à la sauce tomate piquante", "de": "Penne in scharfer Tomatensauce", "es": "Pasta penne en salsa de tomate picante"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "gnocchi-podoro-e-basilico", "name": {"it": "GNOCCHI POMODORO E BASILICO", "en": "Gnocchi with Tomato and Basil", "fr": "Gnocchis à la tomate et au basilic", "de": "Gnocchi mit Tomate und Basilikum", "es": "Ñoquis con tomate y albahaca"}, "description": {"it": "Gnocchi fatti in casa con pomodori freschi e basilico", "en": "Homemade gnocchi with fresh tomatoes and basil", "fr": "Gnocchis maison aux tomates fraîches et basilic", "de": "Hausgemachte Gnocchi mit frischen Tomaten und Basilikum", "es": "Ñoquis caseros con tomates frescos y albahaca"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "spaghetti-alle-vongole-veraci", "name": {"it": "SPAGHETTI ALLE VONGOLE VERACI", "en": "Spaghetti with Clams", "fr": "Spaghetti aux palourdes", "de": "Spaghetti mit Venusmuscheln", "es": "Espaguetis con almejas"}, "description": {"it": "Spaghetti con vongole", "en": "Spaghetti with clams", "fr": "Spaghetti aux palourdes", "de": "Spaghetti mit Venusmuscheln", "es": "Espaguetis con almejas"}, "alerts": [], "pairings": [], "price": "€ 10,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "lasagna-alla-bolognese", "name": {"it": "LASAGNA ALLA BOLOGNESE", "en": "Lasagna Bolognese", "fr": "Lasagnes à la bolognaise", "de": "Lasagne Bolognese", "es": "Lasaña a la boloñesa"}, "description": {"it": "Lasagna fatta in casa con ragù alla bolognese", "en": "Homemade lasagna with Bolognese sauce", "fr": "Lasagnes maison à la sauce bolognaise", "de": "Hausgemachte Lasagne mit Bolognese-Sauce", "es": "Lasaña casera con salsa boloñesa"}, "alerts": [], "pairings": [{"itemId": "insalata-mista", "label": {"it": "Insalata Mista", "en": "Mixed Salad", "fr": "Salade Mixte", "de": "Gemischter Salat", "es": "Ensalada Mixta"}, "suggested": true}], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "spaghetti-pomodoro-e-basilico", "name": {"it": "SPAGHETTI POMODORO E BASILICO", "en": "Spaghetti with Tomato and Basil", "fr": "Spaghetti à la tomate et au basilic", "de": "Spaghetti mit Tomate und Basilikum", "es": "Espaguetis con tomate y albahaca"}, "description": {"it": "Spaghetti con salsa di pomodoro e basilico", "en": "Spaghetti with tomato sauce and basil", "fr": "Spaghetti à la sauce tomate et basilic", "de": "Spaghetti mit Tomatensauce und Basilikum", "es": "Espaguetis con salsa de tomate y albahaca"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "spaghetti-alla-bolognese", "name": {"it": "SPAGHETTI ALLA BOLOGNESE", "en": "Spaghetti Bolognese", "fr": "Spaghetti à la bolognaise", "de": "Spaghetti Bolognese", "es": "Espaguetis a la boloñesa"}, "description": {"it": "Spaghetti con ragù di carne e pomodoro", "en": "Spaghetti with meat and tomato sauce", "fr": "Spaghetti à la sauce viande et tomate", "de": "Spaghetti mit Fleisch- und Tomatensauce", "es": "Espaguetis con carne y salsa de tomate"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "rigatoni-alla-calabrese", "name": {"it": "RIGATONI ALLA CALABRESE", "en": "Rigatoni alla Calabrese", "fr": "Rigatoni à la Calabrese", "de": "Rigatoni alla Calabrese", "es": "Rigatoni a la Calabrese"}, "description": {"it": "Rigatoni con 'Nduja, melanzane e mozzarella", "en": "Rigatoni with 'Nduja, aubergine, and mozzarella", "fr": "Rigatoni à la 'Nduja, aubergine et mozzarella", "de": "Rigatoni mit 'Nduja, Aubergine und Mozzarella", "es": "Rigatoni con 'Nduja, berenjena y mozzarella"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "gnocchi-ai-4-formaggi", "name": {"it": "GNOCCHI AI 4 FORMAGGI", "en": "Gnocchi Four Cheese", "fr": "Gnocchis aux quatre fromages", "de": "Gnocchi mit vier Käsesorten", "es": "Ñoquis a los cuatro quesos"}, "description": {"it": "Gnocchi di patate ai quattro formaggi", "en": "Potato dumplings with four cheeses", "fr": "Gnocchis de pommes de terre aux quatre fromages", "de": "Kartoffelklöße mit vier Käsesorten", "es": "Ñoquis de patata con cuatro quesos"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "pennette-al-salmone", "name": {"it": "PENNETTE AL SALMONE", "en": "Pennette with Salmon", "fr": "Pennette au saumon", "de": "Pennette mit Lachs", "es": "Pennette con salmón"}, "description": {"it": "Pennette con salmone", "en": "Pennette pasta with salmon", "fr": "Pâtes pennette au saumon", "de": "Pennette-Nudeln mit Lachs", "es": "Pasta pennette con salmón"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "risotto-con-spinaci", "name": {"it": "RISOTTO CON SPINACI", "en": "Risotto with Spinach", "fr": "Risotto aux épinards", "de": "Risotto mit Spinat", "es": "Risotto con espinacas"}, "description": {"it": "Risotto con spinaci", "en": "Risotto with spinach", "fr": "Risotto aux épinards", "de": "Risotto mit Spinat", "es": "Risotto con espinacas"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "risotto-ai-funghi-porcini", "name": {"it": "RISOTTO AI FUNGHI PORCINI", "en": "Risotto with Porcini Mushrooms", "fr": "Risotto aux cèpes", "de": "Risotto mit Steinpilzen", "es": "Risotto con setas porcini"}, "description": {"it": "Risotto con funghi porcini", "en": "Risotto with porcini mushrooms", "fr": "Risotto aux cèpes", "de": "Risotto mit Steinpilzen", "es": "Risotto con setas porcini"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "risotto-gamberi-e-radicchio", "name": {"it": "RISOTTO GAMBERI E RADICCHIO", "en": "Risotto with Prawns and Radicchio", "fr": "Risotto aux crevettes et radicchio", "de": "Risotto mit Garnelen und Radicchio", "es": "Risotto con gambas y radicchio"}, "description": {"it": "Risotto con gamberi e radicchio", "en": "Risotto with prawns and red chicory", "fr": "Risotto aux crevettes et chicorée rouge", "de": "Risotto mit Garnelen und Radicchio", "es": "Risotto con gambas y achicoria roja"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "risotto-alla-crema-di-scampi", "name": {"it": "RISOTTO ALLA CREMA DI SCAMPI", "en": "Risotto with Scampi Cream", "fr": "Risotto à la crème de langoustines", "de": "Risotto mit Scampi-Creme", "es": "Risotto con crema de cigalas"}, "description": {"it": "Risotto con crema di scampi", "en": "Risotto with scampi cream", "fr": "Risotto à la crème de langoustines", "de": "Risotto mit Scampi-Creme", "es": "Risotto con crema de cigalas"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "zuppa-di-verdure", "name": {"it": "ZUPPA DI VERDURE", "en": "Vegetable Soup", "fr": "Soupe de légumes", "de": "Gemüsesuppe", "es": "Sopa de verduras"}, "description": {"it": "Zuppa di verdure", "en": "Vegetable soup", "fr": "Soupe de légumes", "de": "Gemüsesuppe", "es": "Sopa de verduras"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}]}, {"id": "secondi-piatti", "title": {"it": "SECONDI PIATTI", "en": "Main Courses", "fr": "Plats principaux", "de": "Hauptgerichte", "es": "Segundos platos"}, "description": {"it": "Secondi piatti", "en": "Main Course", "fr": "Plats principaux", "de": "Hauptgerichte", "es": "Segundos platos"}, "items": [{"id": "pollo-arrosto", "name": {"it": "POLLO ARROSTO", "en": "Roast Chicken", "fr": "Poulet rôti", "de": "Brathähnchen", "es": "Pollo asado"}, "description": {"it": "Pollo arrosto", "en": "Roast chicken", "fr": "Poulet rôti", "de": "Brathähnchen", "es": "Pollo asado"}, "alerts": [], "pairings": [{"itemId": "patate-al-forno", "label": {"it": "Patate al Forno", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "suggested": true}, {"itemId": "insalata-mista", "label": {"it": "Insalata Mista", "en": "Mixed Salad", "fr": "Salade Mixte", "de": "Gemischter Salat", "es": "Ensalada Mixta"}, "suggested": true}], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "scaloppine-al-vino-bianco", "name": {"it": "SCALOPPINE AL VINO BIANCO", "en": "Pork Escalopes in White Wine", "fr": "Escalopes de porc au vin blanc", "de": "Schweineschnitzel in Weißwein", "es": "Escalopes de cerdo al vino blanco"}, "description": {"it": "Scaloppine di maiale in salsa al vino bianco", "en": "Pork escalopes in white wine sauce", "fr": "Escalopes de porc à la sauce au vin blanc", "de": "Schweineschnitzel in Weißweinsauce", "es": "Escalopes de cerdo en salsa de vino blanco"}, "alerts": [], "pairings": [{"itemId": "verdure-cotte", "label": {"it": "Verdure Cotte", "en": "Boiled Vegetables", "fr": "Légumes cuits", "de": "Gekochtes Gemüse", "es": "Verduras cocidas"}, "suggested": true}], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "scaloppine-alla-pizzaiola", "name": {"it": "SCALOPPINE ALLA PIZZAIOLA", "en": "Pork Escalopes alla Pizzaiola", "fr": "Escalopes de porc à la pizzaiola", "de": "Schweineschnitzel alla Pizzaiola", "es": "Escalopes de cerdo a la pizzaiola"}, "description": {"it": "Scaloppine di maiale in salsa di pomodoro", "en": "Pork escalopes in tomato sauce", "fr": "Escalopes de porc à la sauce tomate", "de": "Schweineschnitzel in Tomatensauce", "es": "Escalopes de cerdo en salsa de tomate"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "braciola-di-maiale", "name": {"it": "BRACIOLA DI MAIALE", "en": "Grilled Pork Chop", "fr": "Côtelette de porc grillée", "de": "Gegrilltes Schweinekotelett", "es": "Chuleta de cerdo a la parrilla"}, "description": {"it": "Braciola di maiale alla griglia", "en": "Grilled pork chop", "fr": "Côtelette de porc grillée", "de": "Gegrilltes Schweinekotelett", "es": "Chuleta de cerdo a la parrilla"}, "alerts": [], "pairings": [], "price": "€ 8,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "bistecca-di-manzo-ai-ferri", "name": {"it": "BISTECCA DI MANZO AI FERRI", "en": "Grilled Beef Steak", "fr": "Steak de bœuf grillé", "de": "Gegrilltes Rindersteak", "es": "Bistec de ternera a la parrilla"}, "description": {"it": "Bistecca di manzo alla griglia", "en": "Grilled beef steak", "fr": "Steak de bœuf grillé", "de": "Gegrilltes Rindersteak", "es": "Bistec de ternera a la parrilla"}, "alerts": [], "pairings": [{"itemId": "patate-fritte", "label": {"it": "Patate Fritte", "en": "French Fries", "fr": "Frites", "de": "Pommes Frites", "es": "Patatas Fritas"}, "suggested": true}, {"itemId": "verdure-alla-griglia", "label": {"it": "Verdure alla Griglia", "en": "Grilled Vegetables", "fr": "Légumes grillés", "de": "Gegrilltes Gemüse", "es": "Verduras a la parrilla"}, "suggested": true}], "price": "€ 14,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "filetto-al-pepe-verde", "name": {"it": "FILETTO AL PEPE VERDE", "en": "Fillet Steak with Green Peppercorn Sauce", "fr": "Filet de bœuf au poivre vert", "de": "Filetsteak mit grüner Pfeffersauce", "es": "Solomillo a la pimienta verde"}, "description": {"it": "Filetto di manzo in salsa al pepe verde", "en": "Fillet steak in green peppercorn sauce", "fr": "Filet de bœuf à la sauce au poivre vert", "de": "Filetsteak in grüner Pfeffersauce", "es": "Solomillo en salsa de pimienta verde"}, "alerts": [], "pairings": [{"itemId": "patate-al-forno", "label": {"it": "Patate al Forno", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "suggested": true}], "price": "€ 16,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "saltimbocca-alla-romana", "name": {"it": "SALTIMBOCCA ALLA ROMANA", "en": "Saltimbocca alla Romana", "fr": "Saltimbocca à la Romaine", "de": "Saltimbocca alla Romana", "es": "Saltimbocca a la Romana"}, "description": {"it": "Saltimbocca tipico alla romana", "en": "Traditional Roman-style Saltimbocca", "fr": "Saltimbocca traditionnel à la romaine", "de": "Traditionelles Saltimbocca nach römischer Art", "es": "Saltimbocca tradicional al estilo romano"}, "alerts": [], "pairings": [], "price": "€ 10,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "scamorza-con-prosciutto", "name": {"it": "SCAMORZA CON PROSCIUTTO", "en": "Scamorza with Ham", "fr": "Scamorza au jambon", "de": "Scamorza mit Schinken", "es": "Scamorza con jamón"}, "description": {"it": "Scamorza alla griglia con prosciutto", "en": "Grilled scamorza cheese with ham", "fr": "Scamorza grillée au jambon", "de": "Gegrillter Scamorza-Käse mit Schinken", "es": "Scamorza a la parrilla con jamón"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "petto-di-pollo-alla-piastra", "name": {"it": "PETTO DI POLLO ALLA PIASTRA", "en": "Grilled Chicken Breast", "fr": "Blanc de poulet grillé", "de": "Gegrillte Hähnchenbrust", "es": "Pechuga de pollo a la plancha"}, "description": {"it": "Petto di pollo alla griglia", "en": "Grilled chicken breast", "fr": "Blanc de poulet grillé", "de": "Gegrillte Hähnchenbrust", "es": "Pechuga de pollo a la plancha"}, "alerts": [], "pairings": [{"itemId": "verdure-alla-griglia", "label": {"it": "Verdure alla Griglia", "en": "Grilled Vegetables", "fr": "Légumes grillés", "de": "Gegrilltes Gemüse", "es": "Verduras a la parrilla"}, "suggested": true}], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "tagliata-di-manzo", "name": {"it": "TAGLIATA DI MANZO", "en": "Sliced Beef Steak", "fr": "Tagliata de bœuf", "de": "Rinderfiletstreifen", "es": "Tagliata de ternera"}, "description": {"it": "Tagliata di manzo", "en": "Sliced beef steak", "fr": "Tranches de bœuf", "de": "Geschnittenes Rindersteak", "es": "Filete de ternera en lonchas"}, "alerts": [], "pairings": [{"itemId": "patate-al-forno", "label": {"it": "Patate al Forno", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "suggested": true}, {"itemId": "verdure-alla-griglia", "label": {"it": "Verdure alla Griglia", "en": "Grilled Vegetables", "fr": "Légumes grillés", "de": "Gegrilltes Gemüse", "es": "Verduras a la parrilla"}, "suggested": true}], "price": "€ 15,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "tagliata-di-manzo-ai-funghi-porcini", "name": {"it": "TAGLIATA DI MANZO AI FUNGHI PORCINI", "en": "Sliced Beef Steak with Porcini Mushrooms", "fr": "Tagliata de bœuf aux cèpes", "de": "Rinderfiletstreifen mit Steinpilzen", "es": "Tagliata de ternera con setas porcini"}, "description": {"it": "Tagliata di manzo con funghi porcini", "en": "Sliced beef steak with porcini mushrooms", "fr": "Tranches de bœuf aux cèpes", "de": "Geschnittenes Rindersteak mit Steinpilzen", "es": "Filete de ternera en lonchas con setas porcini"}, "alerts": [], "pairings": [{"itemId": "patate-al-forno", "label": {"it": "Patate al Forno", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "suggested": true}], "price": "€ 19,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "tagliata-di-manzo-rucola-grana-e-pomodorini", "name": {"it": "TAGLIATA DI MANZO RUCOLA GRANA E POMODORINI", "en": "Sliced Beef Steak with Rocket, Parmesan, and Cherry Tomatoes", "fr": "Tagliata de bœuf roquette, grana et tomates cerises", "de": "Rinderfiletstreifen mit Rucola, Grana Padano und Kirschtomaten", "es": "Tagliata de ternera con rúcula, grana y tomates cherry"}, "description": {"it": "Tagliata di manzo con rucola, grana e pomodorini", "en": "Sliced beef steak with rocket, Parmesan, and cherry tomatoes", "fr": "Tranches de bœuf à la roquette, parmesan et tomates cerises", "de": "Geschnittenes Rindersteak mit Rucola, Parmesan und Kirschtomaten", "es": "Filete de ternera en lonchas con rúcula, parmesano y tomates cherry"}, "alerts": [], "pairings": [{"itemId": "patate-al-forno", "label": {"it": "Patate al Forno", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "suggested": true}], "price": "€ 18,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}]}, {"id": "contorni", "title": {"it": "CONTORNI", "en": "Side Dishes", "fr": "Accompagnements", "de": "Beilagen", "es": "Guarniciones"}, "description": {"it": "Contorni", "en": "Side Dishes", "fr": "Accompagnements", "de": "Beilagen", "es": "Guarniciones"}, "items": [{"id": "insalata-mista", "name": {"it": "INSALATA MISTA", "en": "Mixed Salad", "fr": "Salade mixte", "de": "Gemischter Salat", "es": "Ensalada mixta"}, "description": {"it": "Insalata mista", "en": "Mixed salad", "fr": "Salade mixte", "de": "Gemischter Salat", "es": "Ensalada mixta"}, "alerts": [], "pairings": [], "price": "€ 4,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "verdure-alla-griglia", "name": {"it": "VERDURE ALLA GRIGLIA", "en": "Grilled Vegetables", "fr": "Légumes grillés", "de": "Gegrilltes Gemüse", "es": "Verduras a la parrilla"}, "description": {"it": "Verdure miste alla griglia", "en": "Grilled mixed vegetables", "fr": "Assortiment de légumes grillés", "de": "Gemischtes Grillgemüse", "es": "Verduras mixtas a la parrilla"}, "alerts": [], "pairings": [], "price": "€ 4,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "patate-fritte", "name": {"it": "PATATE FRITTE", "en": "French Fries", "fr": "Frites", "de": "Pommes Frites", "es": "Patatas Fritas"}, "description": {"it": "Patate fritte", "en": "French fries", "fr": "Frites", "de": "Pommes Frites", "es": "Patatas fritas"}, "alerts": [], "pairings": [], "price": "€ 4,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "patate-al-forno", "name": {"it": "PATATE AL FORNO", "en": "Roast Potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "description": {"it": "Patate al forno", "en": "Roast potatoes", "fr": "Pommes de terre rôties", "de": "Bratkartoffeln", "es": "Patatas asadas"}, "alerts": [], "pairings": [], "price": "€ 4,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "verdure-cotte", "name": {"it": "VERDURE COTTE", "en": "Boiled Vegetables", "fr": "Légumes cuits", "de": "Gekochtes Gemüse", "es": "Verduras cocidas"}, "description": {"it": "Verdure cotte", "en": "Boiled vegetables", "fr": "Légumes cuits", "de": "Gekochtes Gemüse", "es": "Verduras cocidas"}, "alerts": [], "pairings": [], "price": "€ 4,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}]}, {"id": "pizze", "title": {"it": "PIZZE", "en": "Pizzas", "fr": "Pizzas", "de": "Pizzen", "es": "Pizzas"}, "description": {"it": "Pizze", "en": "Pizzas", "fr": "Pizzas", "de": "Pizzen", "es": "Pizzas"}, "items": [{"id": "capricciosa", "name": {"it": "CAPRICCIOSA", "en": "Capricciosa", "fr": "Capricciosa", "de": "Capricciosa", "es": "Capricciosa"}, "description": {"it": "Pomodoro, mozzarella, funghi, prosciutto, uovo e olive", "en": "Tomato, mozzarella, mushrooms, ham, egg, and olives", "fr": "Tomate, mozzarella, champignons, jambon, œuf et olives", "de": "Tomate, Mozzarella, Pilze, Schinken, Ei und Oliven", "es": "Tomate, mozzarella, champiñones, jamón, huevo y aceitunas"}, "alerts": [], "pairings": [], "price": "€ 7,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "margherita", "name": {"it": "MARGHERITA", "en": "Margherita", "fr": "Margherita", "de": "Margherita", "es": "Margherita"}, "description": {"it": "Pomodoro e mozzarella", "en": "Tomato and mozzarella", "fr": "Tomate et mozzarella", "de": "Tomate und Mozzarella", "es": "Tomate y mozzarella"}, "alerts": [], "pairings": [], "price": "€ 6,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "funghi", "name": {"it": "FUNGHI", "en": "Funghi", "fr": "Funghi", "de": "Funghi", "es": "Funghi"}, "description": {"it": "Pomodoro, mozzarella e funghi", "en": "Tomato, mozzarella, and mushrooms", "fr": "Tomate, mozzarella et champignons", "de": "Tomate, Mozzarella und Pilze", "es": "Tomate, mozzarella y champiñones"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "napoli", "name": {"it": "NAPOLI", "en": "Napoli", "fr": "Napoli", "de": "Napoli", "es": "Napoli"}, "description": {"it": "Pomodoro, mozzarella e acciughe", "en": "Tomato, mozzarella, and anchovies", "fr": "Tomate, mozzarella et anchois", "de": "Tomate, Mozzarella und Sardellen", "es": "Tomate, mozzarella y anchoas"}, "alerts": [], "pairings": [], "price": "€ 6,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "pomodoro", "name": {"it": "POMODORO", "en": "Pomodoro", "fr": "Pomodoro", "de": "Pomodoro", "es": "Pomodoro"}, "description": {"it": "Salsa di pomodoro", "en": "Tomato sauce", "fr": "Sauce tomate", "de": "Tomatensauce", "es": "Salsa de tomate"}, "alerts": [], "pairings": [], "price": "€ 5,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "4-formaggi", "name": {"it": "4 FORMAGGI", "en": "Four Cheese", "fr": "Quatre fromages", "de": "Vier Käsesorten", "es": "Cuatro quesos"}, "description": {"it": "Quattro formaggi", "en": "Four cheeses", "fr": "Quatre fromages", "de": "Vier Käsesorten", "es": "Cuatro quesos"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "brisaola-ricola-parmigiano", "name": {"it": "BRESAOLA, RUCOLA, PARMIGIANO", "en": "Bresaola, Rocket, Parmesan", "fr": "Bresaola, roquette, parmesan", "de": "Bresaola, Rucola, Parmesan", "es": "Bresaola, rúcula, parmesano"}, "description": {"it": "Mozzarella, bresaola e rucola", "en": "Mozzarella, bresaola, and rocket", "fr": "Mozzarella, bresaola et roquette", "de": "Mozzarella, Bresaola und Rucola", "es": "Mozzarella, bresaola y rúcula"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "funghi-porcini-pizza", "name": {"it": "FUNGHI PORCINI", "en": "Porcini Mushrooms", "fr": "Cèpes", "de": "Steinpilze", "es": "Setas porcini"}, "description": {"it": "Funghi porcini", "en": "Porcini mushrooms", "fr": "Cèpes", "de": "Steinpilze", "es": "Setas porcini"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "pachino-e-bufala", "name": {"it": "PACHINO E BUFALA", "en": "Pachino and Buffalo Mozzarella", "fr": "Pachino et mozzarella de bufflonne", "de": "Pachino und Büffelmozzarella", "es": "Pachino y mozzarella de búfala"}, "description": {"it": "Pomodoro, pomodorini Pachino e mozzarella di bufala", "en": "Tomato, Pachino cherry tomatoes, and buffalo mozzarella", "fr": "Tomate, tomates cerises Pachino et mozzarella de bufflonne", "de": "Tomate, Pachino-Kirschtomaten und Büffelmozzarella", "es": "Tomate, tomates cherry Pachino y mozzarella de búfala"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "vegetariana", "name": {"it": "VEGETARIANA", "en": "Vegetariana", "fr": "Végétarienne", "de": "Vegetarisch", "es": "Vegetariana"}, "description": {"it": "Mozzarella e verdure miste", "en": "Mozzarella and mixed vegetables", "fr": "Mozzarella et légumes variés", "de": "Mozzarella und gemischtes Gemüse", "es": "Mozzarella y verduras variadas"}, "alerts": [], "pairings": [], "price": "€ 7,50", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "diavola", "name": {"it": "DIAVOLA", "en": "Diavola", "fr": "Diavola", "de": "Diavola", "es": "Diavola"}, "description": {"it": "Pomodoro, mozzarella, salame piccante", "en": "Tomato, mozzarella, and spicy salami", "fr": "Tomate, mozzarella et salami piquant", "de": "Tomate, Mozzarella und scharfe Salami", "es": "Tomate, mozzarella y salami picante"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "prosciutto-pizza", "name": {"it": "PROSCIUTTO", "en": "Prosciutto", "fr": "Jambon", "de": "Schinken", "es": "Jamón"}, "description": {"it": "Con mozzarella e prosciutto", "en": "With mozzarella and ham", "fr": "Avec mozzarella et jambon", "de": "Mit Mozzarella und Schinken", "es": "Con mozzarella y jamón"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "patate-pizza", "name": {"it": "PATATE", "en": "Potatoes", "fr": "Pommes de terre", "de": "Kartoffeln", "es": "Patatas"}, "description": {"it": "Patate", "en": "Potatoes", "fr": "Pommes de terre", "de": "Kartoffeln", "es": "Patatas"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "gamberi-e-maionese", "name": {"it": "GAMBERI E MAIONESE", "en": "Prawns and Mayonnaise", "fr": "Crevettes et mayonnaise", "de": "Garnelen und Mayonnaise", "es": "Gambas y mayonesa"}, "description": {"it": "Mozzarella, gamberi e maionese", "en": "Mozzarella, prawns, and mayonnaise", "fr": "Mozzarella, crevettes et mayonnaise", "de": "Mozzarella, Garnelen und Mayonnaise", "es": "Mozzarella, gambas y mayonesa"}, "alerts": [], "pairings": [], "price": "€ 9,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "wurstel-e-patate", "name": {"it": "WURSTEL E PATATE", "en": "Wurstel and Potatoes", "fr": "Saucisses et pommes de terre", "de": "Würstchen und Kartoffeln", "es": "Salchichas y patatas"}, "description": {"it": "Wurstel e patate", "en": "Wurstel and potatoes", "fr": "Saucisses et pommes de terre", "de": "Würstchen und Kartoffeln", "es": "Salchichas y patatas"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "funghi-e-prosciutto", "name": {"it": "FUNGHI E PROSCIUTTO", "en": "Mushrooms and Ham", "fr": "Champignons et jambon", "de": "Pilze und Schinken", "es": "Champiñones y jamón"}, "description": {"it": "Funghi e prosciutto", "en": "Mushrooms and ham", "fr": "Champignons et jambon", "de": "Pilze und Schinken", "es": "Champiñones y jamón"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "crostino-con-prosciutto", "name": {"it": "CROSTINO CON PROSCIUTTO", "en": "Crostino with Ham", "fr": "Crostino au jambon", "de": "Crostino mit Schinken", "es": "Crostino con jamón"}, "description": {"it": "Con mozzarella e prosciutto", "en": "With mozzarella cheese and ham", "fr": "Avec mozzarella et jambon", "de": "Mit Mozzarella und Schinken", "es": "Con mozzarella y jamón"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "crostino-con-prosciutto-mozzarella-e-funghi", "name": {"it": "CROSTINO CON PROSCIUTTO MOZZARELLA E FUNGHI", "en": "Crostino with Ham, Mozzarella, and Mushrooms", "fr": "Crostino jambon, mozzarella et champignons", "de": "Crostino mit Schinken, Mozzarella und Pilzen", "es": "Crostino con jamón, mozzarella y champiñones"}, "description": {"it": "Con mozzarella, prosciutto e funghi", "en": "With mozzarella cheese, ham, and mushrooms", "fr": "Avec mozzarella, jambon et champignons", "de": "Mit Mozzarella, Schinken und Pilzen", "es": "Con mozzarella, jamón y champiñones"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "crostino-con-alici-e-mozzarella", "name": {"it": "CROSTINO CON ALICI E MOZZARELLA", "en": "Crostino with Anchovies and Mozzarella", "fr": "Crostino aux anchois et mozzarella", "de": "Crostino mit Sardellen und Mozzarella", "es": "Crostino con anchoas y mozzarella"}, "description": {"it": "Con mozzarella e acciughe", "en": "With mozzarella cheese and anchovies", "fr": "Avec mozzarella et anchois", "de": "Mit Mozzarella und Sardellen", "es": "Con mozzarella y anchoas"}, "alerts": [], "pairings": [], "price": "€ 7,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "calzone-prosciutto-mozzarella-e-funghi", "name": {"it": "CALZONE PROSCIUTTO, MOZZARELLA E FUNGHI", "en": "Calzone with Ham, Mozzarella, and Mushrooms", "fr": "Calzone jambon, mozzarella et champignons", "de": "Calzone mit Schinken, Mozzarella und Pilzen", "es": "Calzone con jamón, mozzarella y champiñones"}, "description": {"it": "Prosciutto, mozzarella e funghi", "en": "Ham, mozzarella, and mushrooms", "fr": "Jambon, mozzarella et champignons", "de": "Schinken, Mozzarella und Pilze", "es": "Jamón, mozzarella y champiñones"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}, {"id": "calzone-salsiccia-mozzarella", "name": {"it": "CALZONE SALSICCIA, MOZZARELLA", "en": "Calzone with Sausage, Mozzarella", "fr": "Calzone saucisse, mozzarella", "de": "Calzone mit Wurst, Mozzarella", "es": "Calzone con salchicha, mozzarella"}, "description": {"it": "Salsiccia, mozzarella", "en": "Sausage and mozzarella", "fr": "Saucisse et mozzarella", "de": "Wurst und Mozzarella", "es": "Salchicha y mozzarella"}, "alerts": [], "pairings": [], "price": "€ 8,00", "dietary": [], "allergens": [], "may_contain": [], "allergen_status": "unknown", "image": {"src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22180%22%20viewBox%3D%220%200%20800%20180%22%3E%3Crect%20width%3D%22800%22%20height%3D%22180%22%20fill%3D%22%23edf4ef%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%236d857a%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2250%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%2290%22%20r%3D%2234%22/%3E%3Cpath%20d%3D%22M330%2042v95m-10-95v33q10%2015%2020%200V42m135%200v95m0-95q-20%2032%200%2050%22/%3E%3C/g%3E%3C/svg%3E", "alt": {"it": "", "en": "", "fr": "", "de": "", "es": ""}, "tone": "neutral"}, "featured": false}]}]};
+window.MOOD_MENU_TAXONOMIES={"languages": ["it", "en", "fr", "de", "es"], "dietary": {"vegan": {"label": {"it": "Vegano", "en": "Vegan", "fr": "Vegan", "de": "Vegan", "es": "Vegano"}}, "vegetarian": {"label": {"it": "Vegetariano", "en": "Vegetarian", "fr": "Vegetarien", "de": "Vegetarisch", "es": "Vegetariano"}}, "gluten_free": {"label": {"it": "Senza glutine", "en": "Gluten-free", "fr": "Sans gluten", "de": "Glutenfrei", "es": "Sin gluten"}}, "lactose_free": {"label": {"it": "Senza lattosio", "en": "Lactose-free", "fr": "Sans lactose", "de": "Laktosefrei", "es": "Sin lactosa"}}, "alcohol_free": {"label": {"it": "Analcolico", "en": "Alcohol-free", "fr": "Sans alcool", "de": "Alkoholfrei", "es": "Sin alcohol"}}, "spicy": {"label": {"it": "Piccante", "en": "Spicy", "fr": "Epice", "de": "Scharf", "es": "Picante"}}}, "allergens": {"gluten": {"label": {"it": "Glutine", "en": "Gluten", "fr": "Gluten", "de": "Gluten", "es": "Gluten"}}, "crustaceans": {"label": {"it": "Crostacei", "en": "Crustaceans", "fr": "Crustaces", "de": "Krebstiere", "es": "Crustaceos"}}, "eggs": {"label": {"it": "Uova", "en": "Eggs", "fr": "Oeufs", "de": "Eier", "es": "Huevos"}}, "fish": {"label": {"it": "Pesce", "en": "Fish", "fr": "Poisson", "de": "Fisch", "es": "Pescado"}}, "peanuts": {"label": {"it": "Arachidi", "en": "Peanuts", "fr": "Arachides", "de": "Erdnuesse", "es": "Cacahuetes"}}, "soy": {"label": {"it": "Soia", "en": "Soy", "fr": "Soja", "de": "Soja", "es": "Soja"}}, "milk": {"label": {"it": "Latte", "en": "Milk", "fr": "Lait", "de": "Milch", "es": "Leche"}}, "nuts": {"label": {"it": "Frutta a guscio", "en": "Tree nuts", "fr": "Fruits a coque", "de": "Schalenfruechte", "es": "Frutos de cascara"}}, "celery": {"label": {"it": "Sedano", "en": "Celery", "fr": "Celeri", "de": "Sellerie", "es": "Apio"}}, "mustard": {"label": {"it": "Senape", "en": "Mustard", "fr": "Moutarde", "de": "Senf", "es": "Mostaza"}}, "sesame": {"label": {"it": "Sesamo", "en": "Sesame", "fr": "Sesame", "de": "Sesam", "es": "Sesamo"}}, "sulfites": {"label": {"it": "Solfiti", "en": "Sulfites", "fr": "Sulfites", "de": "Sulfite", "es": "Sulfitos"}}, "lupin": {"label": {"it": "Lupini", "en": "Lupin", "fr": "Lupin", "de": "Lupinen", "es": "Altramuces"}}, "molluscs": {"label": {"it": "Molluschi", "en": "Molluscs", "fr": "Mollusques", "de": "Weichtiere", "es": "Moluscos"}}}};
+window.MOOD_MENU_LABELS={"unknownAllergens": {"it": "Allergeni: informazioni incomplete o non disponibili.", "en": "Allergens: information incomplete or unavailable.", "fr": "Allergènes : informations incomplètes ou indisponibles.", "de": "Allergene: Angaben unvollständig oder nicht verfügbar.", "es": "Alérgenos: información incompleta o no disponible."}, "suggestedPairings": {"it": "Abbinamenti suggeriti", "en": "Suggested pairings", "fr": "Accords suggérés", "de": "Empfohlene Kombinationen", "es": "Maridajes sugeridos"}, "safetyNote": {"it": "Le indicazioni alimentari riportano quanto dichiarato nel menù originale. Con un filtro allergeni attivo, i prodotti con informazioni incomplete vengono nascosti. Per esigenze alimentari rivolgiti al personale. Gli abbinamenti sono suggerimenti automatici; le illustrazioni sono segnaposto.", "en": "Dietary information reflects declarations in the original menu. Allergen filters also hide items with incomplete information. Ask staff about dietary needs. Pairings are automatic suggestions; illustrations are placeholders.", "fr": "Les informations alimentaires reprennent les déclarations du menu original. Les filtres d’allergènes masquent aussi les produits aux informations incomplètes. Adressez-vous au personnel pour vos besoins alimentaires. Les accords sont des suggestions automatiques ; les illustrations sont indicatives.", "de": "Die Lebensmittelangaben stammen aus der Originalspeisekarte. Allergenfilter blenden auch Produkte mit unvollständigen Angaben aus. Fragen Sie das Personal nach Ihren Ernährungsbedürfnissen. Kombinationen werden automatisch vorgeschlagen; die Abbildungen sind Platzhalter.", "es": "La información alimentaria reproduce las declaraciones del menú original. Los filtros de alérgenos también ocultan los productos con información incompleta. Consulta al personal sobre tus necesidades alimentarias. Los maridajes son sugerencias automáticas; las ilustraciones son orientativas."}, "title": {"it": "Menu", "en": "Menu", "fr": "Menu", "de": "Menue", "es": "Menu"}, "language": {"it": "Lingua", "en": "Language", "fr": "Langue", "de": "Sprache", "es": "Idioma"}, "search": {"it": "Cerca nel menu", "en": "Search menu", "fr": "Rechercher", "de": "Suchen", "es": "Buscar"}, "preferences": {"it": "Preferenze", "en": "Preferences", "fr": "Preferences", "de": "Vorlieben", "es": "Preferencias"}, "allergies": {"it": "Nascondi allergeni", "en": "Hide allergens", "fr": "Masquer allergenes", "de": "Allergene ausblenden", "es": "Ocultar alergenos"}, "pairings": {"it": "Abbinamenti", "en": "Pairings", "fr": "Accords", "de": "Empfehlungen", "es": "Maridajes"}, "alerts": {"it": "Alert alimentari", "en": "Food alerts", "fr": "Alertes alimentaires", "de": "Lebensmittelhinweise", "es": "Alertas alimentarias"}, "noResults": {"it": "Nessun elemento corrisponde ai filtri selezionati.", "en": "No items match the selected filters.", "fr": "Aucun element ne correspond aux filtres.", "de": "Keine Elemente entsprechen den Filtern.", "es": "No hay elementos para los filtros seleccionados."}, "reset": {"it": "Reset", "en": "Reset", "fr": "Reinitialiser", "de": "Zuruecksetzen", "es": "Restablecer"}, "mayContain": {"it": "Puo contenere", "en": "May contain", "fr": "Peut contenir", "de": "Kann enthalten", "es": "Puede contener"}};</script>
+<script>(function () {
+  const requiredLanguages = ["it", "en", "fr", "de", "es"];
+  const languageNames = {
+    it: "🇮🇹 Italiano",
+    en: "🇬🇧 English",
+    fr: "🇫🇷 Français",
+    de: "🇩🇪 Deutsch",
+    es: "🇪🇸 Español"
+  };
+
+  const dietaryIcons = {
+    vegan: "leaf",
+    vegetarian: "sprout",
+    gluten_free: "wheat-off",
+    lactose_free: "milk-off",
+    alcohol_free: "glass-off",
+    spicy: "flame"
+  };
+
+  const allergenIcons = {
+    gluten: "wheat",
+    crustaceans: "shell",
+    eggs: "egg",
+    fish: "fish",
+    peanuts: "peanut",
+    soy: "bean",
+    milk: "milk",
+    nuts: "nut",
+    celery: "leaf",
+    mustard: "seed",
+    sesame: "seed",
+    sulfites: "wine",
+    lupin: "flower",
+    molluscs: "shell"
+  };
+
+  const state = {
+    lang: savedLanguage(),
+    searchDraft: "",
+    search: "",
+    dietary: new Set(),
+    allergens: new Set(),
+    focusItemId: null
+  };
+
+  function savedLanguage() {
+    try { return localStorage.getItem("mfm-lang") || "it"; }
+    catch (_) { return "it"; }
+  }
+
+  function text(value, lang = state.lang) {
+    if (!value) return "";
+    return value[lang] || value.it || "";
+  }
+
+  function money(value, currency) {
+    return /[€$£¥]|\b[A-Z]{3}\b/.test(value) ? value : `${value} ${currency}`;
+  }
+
+  function imageUrl(src) {
+    if (!src) return "";
+    if (src.startsWith("data:image/")) return src;
+    const path = window.location.pathname.replace(/\\/g, "/");
+    if (path.includes("/src/") || path.includes("/dist/") || path.endsWith("/src/index.html") || path.endsWith("/dist/index.html")) {
+      return `../${src}`;
+    }
+    return src;
+  }
+
+  async function loadJson(path) {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error(`Cannot load ${path}`);
+    return response.json();
+  }
+
+  async function loadData() {
+    if (window.MOOD_MENU_DATA && window.MOOD_MENU_TAXONOMIES && window.MOOD_MENU_LABELS) {
+      return {
+        menu: window.MOOD_MENU_DATA,
+        taxonomies: window.MOOD_MENU_TAXONOMIES,
+        labels: window.MOOD_MENU_LABELS
+      };
+    }
+
+    const [menu, taxonomies, labels] = await Promise.all([
+      loadJson("../data/sample-menu.json"),
+      loadJson("../data/taxonomies.json"),
+      loadJson("../data/ui-labels.json")
+    ]);
+    return { menu, taxonomies, labels };
+  }
+
+  function itemMatches(item) {
+    const haystack = [
+      text(item.name),
+      text(item.description),
+      item.price
+    ].join(" ").toLowerCase();
+
+    if (state.search && !haystack.includes(state.search.toLowerCase())) {
+      return false;
+    }
+
+    for (const tag of state.dietary) {
+      if (!item.dietary.includes(tag)) return false;
+    }
+
+    const blockedAllergens = new Set([...(item.allergens || []), ...(item.may_contain || [])]);
+    if (state.allergens.size && item.allergen_status !== "declared") return false;
+    for (const allergen of state.allergens) {
+      if (blockedAllergens.has(allergen)) return false;
+    }
+
+    return true;
+  }
+
+  function iconSvg(name) {
+    const paths = {
+      bean: '<path d="M7.7 14.7c-2.2-2.2-2.2-5.9 0-8.1 2.1-2.1 5.7-2.3 8.2-.5 2.9 2.2 3.4 6.5 1.1 9.4-2.2 2.7-6.6 2.8-9.3-.8Z"/><path d="M9.7 12.5c1.4.6 3.2.2 4.4-1.1 1-1 1.4-2.3 1.2-3.6"/>',
+      egg: '<path d="M12 20c-4 0-7-2.8-7-6.8C5 9 8.7 4 12 4s7 5 7 9.2c0 4-3 6.8-7 6.8Z"/>',
+      fish: '<path d="M3 12s3.2-5 8.4-5c4.5 0 7.6 5 7.6 5s-3.1 5-7.6 5C6.2 17 3 12 3 12Z"/><path d="M19 12l2.5-2.5v5L19 12Z"/><circle cx="9" cy="12" r=".8"/>',
+      flame: '<path d="M12 21c-3.4 0-6-2.4-6-5.7 0-2.9 1.7-4.7 3.7-6.7.7-.7 1.2-1.9.9-3.6 2.8 1.3 5.8 4.4 4.8 8 .9-.4 1.7-1.1 2.2-2.2 1.5 4.8-.7 10.2-5.6 10.2Z"/>',
+      flower: '<path d="M12 13.5c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4Z"/><path d="M12 13.5v6"/><path d="M12 17c-2.8-.1-5-1.3-6.5-3.5 3.1-.4 5.3.4 6.5 2.3"/><path d="M12 17c2.8-.1 5-1.3 6.5-3.5-3.1-.4-5.3.4-6.5 2.3"/>',
+      "glass-off": '<path d="M4 4l16 16"/><path d="M8 4h8l-.8 5.8"/><path d="M10.5 12.6 12 14l2.2-2.2"/><path d="M12 14v6"/><path d="M9 20h6"/>',
+      leaf: '<path d="M5 19c8.5 0 14-5.5 14-14-8.5 0-14 5.5-14 14Z"/><path d="M5 19 19 5"/>',
+      milk: '<path d="M9 3h6"/><path d="M10 3v4l-2 2v10c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V9l-2-2V3"/><path d="M8 13h8"/>',
+      "milk-off": '<path d="M4 4l16 16"/><path d="M9 3h6"/><path d="M10 3v4l-1.3 1.3"/><path d="M8 13h5"/><path d="M16 16.8V9l-2-2V4.9"/><path d="M8 10.5V19c0 1.1.9 2 2 2h4c.5 0 1-.2 1.4-.5"/>',
+      nut: '<path d="M12 21c-4.1 0-7-3.2-7-7.1C5 9.7 8.4 4 12 4s7 5.7 7 9.9c0 3.9-2.9 7.1-7 7.1Z"/><path d="M9.5 12c1.2.7 3.8.7 5 0"/>',
+      peanut: '<path d="M9.5 21c-2.5 0-4.5-2-4.5-4.5 0-1.5.8-2.9 2-3.7-.8-.8-1.3-1.9-1.3-3.1C5.7 7.1 7.8 5 10.4 5c1.3 0 2.4.5 3.2 1.3.7-.8 1.8-1.3 3-1.3 2.4 0 4.4 2 4.4 4.4 0 1.6-.9 3-2.2 3.8.7.8 1.2 1.8 1.2 3 0 2.6-2.1 4.8-4.8 4.8-1.1 0-2.2-.4-3-1.1-.8.7-1.7 1.1-2.7 1.1Z"/>',
+      seed: '<path d="M12 21c-3.2-2.4-5.5-5.4-5.5-9.1C6.5 8.2 9 5.2 12 3c3 2.2 5.5 5.2 5.5 8.9 0 3.7-2.3 6.7-5.5 9.1Z"/><path d="M12 8v8"/>',
+      shell: '<path d="M4 17c1.6-6.2 4.2-10 8-12 3.8 2 6.4 5.8 8 12H4Z"/><path d="M4 17h16"/><path d="M8 17l4-12 4 12"/><path d="M12 5v12"/>',
+      sprout: '<path d="M12 20V10"/><path d="M12 10c-3.4 0-6-2-7-5 3.8-.2 6.2 1.4 7 5Z"/><path d="M12 10c3.4 0 6-2 7-5-3.8-.2-6.2 1.4-7 5Z"/>',
+      wheat: '<path d="M12 21V3"/><path d="M8 7l4 4"/><path d="M16 7l-4 4"/><path d="M8 12l4 4"/><path d="M16 12l-4 4"/><path d="M8 17l4 4"/><path d="M16 17l-4 4"/>',
+      "wheat-off": '<path d="M4 4l16 16"/><path d="M12 21V9"/><path d="M12 6V3"/><path d="M8 7l4 4"/><path d="M16 7l-2.4 2.4"/><path d="M8 12l4 4"/><path d="M16 12l-2.4 2.4"/><path d="M8 17l4 4"/><path d="M16 17l-1.2 1.2"/>',
+      wine: '<path d="M8 4h8l-1 8c-.2 1.7-1.5 3-3 3s-2.8-1.3-3-3L8 4Z"/><path d="M9 9h6"/><path d="M12 15v5"/><path d="M9 20h6"/>',
+      search: '<circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/>'
+    };
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.classList.add("chip-icon");
+    svg.innerHTML = paths[name] || paths.leaf;
+    return svg;
+  }
+
+  function createButton(label, iconName, pressed, onClick) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "filter-chip";
+    button.append(iconSvg(iconName));
+    const span = document.createElement("span");
+    span.textContent = label;
+    button.append(span);
+    button.setAttribute("aria-pressed", String(pressed));
+    button.addEventListener("click", onClick);
+    return button;
+  }
+
+  function renderFilterGroup(title, entries, selectedSet, icons, onToggle) {
+    const group = document.createElement("section");
+    group.className = "control-group";
+
+    const heading = document.createElement("h2");
+    heading.className = "control-title";
+    heading.textContent = title;
+    group.append(heading);
+
+    const list = document.createElement("div");
+    list.className = "filter-list";
+
+    for (const [id, value] of Object.entries(entries)) {
+      list.append(createButton(text(value.label), icons[id], selectedSet.has(id), () => onToggle(id)));
+    }
+
+    group.append(list);
+    return group;
+  }
+
+  function navigateToItem(itemId, data) {
+    state.searchDraft = "";
+    state.search = "";
+    state.dietary.clear();
+    state.allergens.clear();
+    state.focusItemId = itemId;
+    renderApp(data);
+  }
+
+  function renderCard(item, menu, taxonomies, labels, onPairingClick) {
+    const card = document.createElement("article");
+    card.className = `menu-card${item.featured ? " featured" : ""}`;
+    card.id = `item-${item.id}`;
+    card.tabIndex = -1;
+    if (state.focusItemId === item.id) {
+      card.classList.add("pairing-target");
+    }
+
+    const img = document.createElement("img");
+    img.className = "item-image";
+    img.src = imageUrl(item.image.src);
+    img.alt = text(item.image.alt);
+    img.loading = "lazy";
+    card.append(img);
+
+    const body = document.createElement("div");
+    body.className = "item-body";
+
+    const top = document.createElement("div");
+    top.className = "item-topline";
+
+    const name = document.createElement("h3");
+    name.className = "item-name";
+    name.textContent = text(item.name);
+
+    const price = document.createElement("div");
+    price.className = "item-price";
+    price.textContent = money(item.price, menu.currency);
+
+    top.append(name, price);
+    body.append(top);
+
+    const description = document.createElement("p");
+    description.className = "item-description";
+    description.textContent = text(item.description);
+    body.append(description);
+
+    const badges = document.createElement("div");
+    badges.className = "badge-row";
+
+    for (const tag of item.dietary) {
+      const badge = document.createElement("span");
+      badge.className = "badge";
+      badge.textContent = text(taxonomies.dietary[tag]?.label);
+      badges.append(badge);
+    }
+
+    for (const allergen of item.allergens) {
+      const badge = document.createElement("span");
+      badge.className = "badge alert";
+      badge.textContent = text(taxonomies.allergens[allergen]?.label);
+      badges.append(badge);
+    }
+
+    for (const allergen of item.may_contain || []) {
+      const badge = document.createElement("span");
+      badge.className = "badge may";
+      badge.textContent = `${text(labels.mayContain)} ${text(taxonomies.allergens[allergen]?.label)}`;
+      badges.append(badge);
+    }
+
+    if (badges.children.length) body.append(badges);
+
+    if (item.allergen_status !== "declared") {
+      const unknown = document.createElement("p");
+      unknown.className = "unknown-allergens";
+      unknown.textContent = text(labels.unknownAllergens);
+      body.append(unknown);
+    }
+    for (const alert of item.alerts || []) {
+      const warning = document.createElement("p");
+      warning.className = "food-alert";
+      warning.textContent = text(alert);
+      body.append(warning);
+    }
+
+    if (item.pairings.length) {
+      const pairings = document.createElement("div");
+      pairings.className = "pairings";
+      const strong = document.createElement("strong");
+      strong.textContent = `${text(labels.suggestedPairings)}: `;
+      pairings.append(strong);
+
+      item.pairings.forEach((pairing, index) => {
+        if (index > 0) {
+          pairings.append(document.createTextNode(", "));
+        }
+
+        if (pairing.itemId) {
+          const link = document.createElement("a");
+          link.className = "pairing-link";
+          link.href = `#item-${pairing.itemId}`;
+          link.textContent = text(pairing.label);
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            onPairingClick(pairing.itemId);
+          });
+          pairings.append(link);
+          return;
+        }
+
+        pairings.append(document.createTextNode(text(pairing.label)));
+      });
+      body.append(pairings);
+    }
+
+    card.append(body);
+    return card;
+  }
+
+  function renderApp(data) {
+    const { menu, taxonomies, labels } = data;
+    if (!requiredLanguages.includes(state.lang)) state.lang = menu.defaultLanguage || "it";
+
+    document.documentElement.lang = state.lang;
+    document.title = `${menu.venue.name} - ${text(labels.title)}`;
+
+    const app = document.getElementById("app");
+    app.textContent = "";
+
+    const header = document.createElement("header");
+    header.className = "menu-header";
+
+    const titleBlock = document.createElement("div");
+    const kicker = document.createElement("p");
+    kicker.className = "venue-kicker";
+    kicker.textContent = [menu.venue.city, text(labels.title)].filter(Boolean).join(" / ");
+    const title = document.createElement("h1");
+    title.className = "venue-name";
+    title.textContent = menu.venue.name;
+    const tagline = document.createElement("p");
+    tagline.className = "venue-tagline";
+    tagline.textContent = text(menu.venue.tagline);
+    titleBlock.append(kicker, title, tagline);
+
+    const languageField = document.createElement("div");
+    languageField.className = "language-field";
+    const label = document.createElement("label");
+    label.htmlFor = "language";
+    label.textContent = text(labels.language);
+    const select = document.createElement("select");
+    select.id = "language";
+    for (const lang of menu.languages) {
+      const option = document.createElement("option");
+      option.value = lang;
+      option.textContent = languageNames[lang] || lang;
+      option.selected = lang === state.lang;
+      select.append(option);
+    }
+    select.addEventListener("change", () => {
+      state.lang = select.value;
+      try { localStorage.setItem("mfm-lang", state.lang); } catch (_) { /* Private/file browsing. */ }
+      renderApp(data);
+    });
+    languageField.append(label, select);
+    header.append(titleBlock, languageField);
+    app.append(header);
+
+    const controls = document.createElement("section");
+    controls.className = "controls";
+
+    const searchBox = document.createElement("div");
+    searchBox.className = "search-box control-group";
+    const searchTitle = document.createElement("h2");
+    searchTitle.className = "control-title";
+    searchTitle.textContent = text(labels.search);
+
+    const searchForm = document.createElement("form");
+    searchForm.className = "search-form";
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      state.search = state.searchDraft.trim();
+      renderApp(data);
+    });
+
+    const search = document.createElement("input");
+    search.type = "search";
+    search.value = state.searchDraft;
+    search.placeholder = text(labels.search);
+    search.setAttribute("aria-label", text(labels.search));
+    search.addEventListener("input", () => {
+      state.searchDraft = search.value;
+    });
+
+    const searchButton = document.createElement("button");
+    searchButton.type = "submit";
+    searchButton.className = "search-submit";
+    searchButton.setAttribute("aria-label", text(labels.search));
+    searchButton.title = text(labels.search);
+    const searchIcon = iconSvg("search");
+    searchIcon.classList.add("search-icon");
+    searchButton.append(searchIcon);
+
+    searchForm.append(search, searchButton);
+    searchBox.append(searchTitle, searchForm);
+
+    controls.append(searchBox);
+    controls.append(renderFilterGroup(text(labels.preferences), taxonomies.dietary, state.dietary, dietaryIcons, (id) => {
+      state.dietary.has(id) ? state.dietary.delete(id) : state.dietary.add(id);
+      renderApp(data);
+    }));
+    controls.append(renderFilterGroup(text(labels.allergies), taxonomies.allergens, state.allergens, allergenIcons, (id) => {
+      state.allergens.has(id) ? state.allergens.delete(id) : state.allergens.add(id);
+      renderApp(data);
+    }));
+
+    const reset = document.createElement("button");
+    reset.type = "button";
+    reset.className = "reset-button";
+    reset.textContent = text(labels.reset);
+    reset.addEventListener("click", () => {
+      state.searchDraft = "";
+      state.search = "";
+      state.dietary.clear();
+      state.allergens.clear();
+      state.focusItemId = null;
+      renderApp(data);
+    });
+    controls.append(reset);
+    app.append(controls);
+
+    const safetyNote = document.createElement("p");
+    safetyNote.className = "safety-note";
+    safetyNote.textContent = text(labels.safetyNote);
+    app.append(safetyNote);
+
+    const menuGrid = document.createElement("div");
+    menuGrid.className = "menu-grid";
+    let visibleCount = 0;
+
+    for (const section of menu.sections) {
+      const visibleItems = section.items.filter(itemMatches);
+      if (!visibleItems.length) continue;
+      visibleCount += visibleItems.length;
+
+      const sectionEl = document.createElement("section");
+      sectionEl.className = "section";
+
+      const heading = document.createElement("div");
+      heading.className = "section-heading";
+      const sectionTitle = document.createElement("h2");
+      sectionTitle.className = "section-title";
+      sectionTitle.textContent = text(section.title);
+      const sectionDescription = document.createElement("p");
+      sectionDescription.className = "section-description";
+      sectionDescription.textContent = text(section.description);
+      heading.append(sectionTitle, sectionDescription);
+
+      const items = document.createElement("div");
+      items.className = "items";
+      visibleItems.forEach((item) => {
+        items.append(renderCard(item, menu, taxonomies, labels, (itemId) => navigateToItem(itemId, data)));
+      });
+
+      sectionEl.append(heading, items);
+      menuGrid.append(sectionEl);
+    }
+
+    if (!visibleCount) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = text(labels.noResults);
+      menuGrid.append(empty);
+    }
+
+    app.append(menuGrid);
+
+    if (state.focusItemId) {
+      const targetId = state.focusItemId;
+      requestAnimationFrame(() => {
+        const target = document.getElementById(`item-${targetId}`);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.focus({ preventScroll: true });
+        if (window.history?.replaceState) {
+          window.history.replaceState(null, "", `#item-${targetId}`);
+        }
+        state.focusItemId = null;
+      });
+    }
+  }
+
+  loadData()
+    .then(renderApp)
+    .catch((error) => {
+      const app = document.getElementById("app");
+      app.textContent = "⚠️ Impossibile caricare il menù.";
+    });
+})();
+</script></body></html>
