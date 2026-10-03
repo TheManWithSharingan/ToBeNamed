@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu</title>
+
+  <style>
+    :root {
+      --bg: #F5F3F1;
+      --surface: #FCFAF7;
+      --text: #2A1E19;
+      --muted: #5A4B42;
+      --border: #D8D0C9;
+      --accent: #8B5F4A;
+      --chip-bg: #EBE6E1;
+      --chip-active-bg: #8B5F4A;
+      --chip-active-text: #FFFFFF;
+      --focus-border: #A8816B;
+      --image-placeholder-bg: #C7C0B8;
+      --tag-bg: #E0D8D0;
+      --tag-text: #5A4B42;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow: 0 8px 30px color-mix(in srgb, var(--text) 6%, transparent);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app-shell {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .brand-block h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-block p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .language-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .language-control label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .language-control select {
+      border: 0;
+      background: transparent;
+      outline: none;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(10px);
+      padding: 12px 0 18px;
+      margin-bottom: 18px;
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 15px 18px 15px 46px;
+      outline: none;
+      box-shadow: var(--shadow);
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--focus-border);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: var(--chip-bg);
+      color: var(--text);
+      padding: 9px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .filter-btn.active {
+      background: var(--chip-active-bg);
+      color: var(--chip-active-text);
+      border-color: var(--chip-active-bg);
+    }
+
+    .section {
+      margin-top: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-count {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .menu-card {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      min-height: 170px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 170px;
+      object-fit: cover;
+      background: var(--image-placeholder-bg);
+    }
+
+    .menu-card-content {
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .item-heading {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .item-heading h3 {
+      margin: 0;
+      font-size: 1.04rem;
+      line-height: 1.25;
+    }
+
+    .price {
+      white-space: nowrap;
+      font-weight: 750;
+      color: var(--accent);
+    }
+
+    .ingredients {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .dietary-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 14px;
+    }
+
+    .tag {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 0.74rem;
+      border: 1px solid var(--border);
+    }
+
+    .empty-state {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 820px) {
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .app-shell {
+        width: min(100% - 18px, 1120px);
+        padding-top: 18px;
+      }
+
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .language-control {
+        align-self: flex-start;
+      }
+
+      .menu-card {
+        grid-template-columns: 118px minmax(0, 1fr);
+      }
+
+      .menu-card img {
+        min-height: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <h1 id="venue-name">Menu</h1>
+        <p id="menu-subtitle">Digital menu</p>
+      </div>
+
+      <div class="language-control">
+        <label for="language-select">🌐</label>
+        <select id="language-select" aria-label="Select language">
+          
+            <option
+              value="it"
+              selected
+            >
+              IT
+            </option>
+          
+            <option
+              value="fr"
+              
+            >
+              FR
+            </option>
+          
+            <option
+              value="de"
+              
+            >
+              DE
+            </option>
+          
+            <option
+              value="es"
+              
+            >
+              ES
+            </option>
+          
+            <option
+              value="en"
+              
+            >
+              EN
+            </option>
+          
+        </select>
+      </div>
+    </header>
+
+    <section class="controls">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search dishes or ingredients..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="filter-row" id="filter-row">
+        <button class="filter-btn" data-filter="vegetarian" type="button">
+          Vegetarian
+        </button>
+        <button class="filter-btn" data-filter="vegan" type="button">
+          Vegan
+        </button>
+        <button class="filter-btn" data-filter="gluten_free" type="button">
+          Gluten free
+        </button>
+        <button class="filter-btn" data-filter="lactose_free" type="button">
+          Lactose free
+        </button>
+      </div>
+    </section>
+
+    <div id="menu-root"></div>
+  </main>
+
+  <script>
+    const MENUS = {"de": {"currency": "EUR", "language": "de", "menu_id": null, "revision": 1, "schema_version": 1, "sections": [{"id": "section_caffetteria", "items": [{"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "Eine Tasse Kaffee", "url": null}, "ingredients": [], "name": "Kaffee", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "Eine Tasse Americano Kaffee", "url": null}, "ingredients": [], "name": "Americano Kaffee", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_piccola", "image": {"alt": "Eine kleine Tasse Kaffee mit Sahne", "url": null}, "ingredients": [], "name": "Kaffee mit Sahne - Kleine Tasse", "pairings": [], "price_cents": 150}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_grande", "image": {"alt": "Eine gro\u00dfe Tasse Kaffee mit Sahne", "url": null}, "ingredients": [], "name": "Kaffee mit Sahne - Gro\u00dfe Tasse", "pairings": [], "price_cents": 200}], "name": "Cafeteria"}], "venue": {"name": null}}, "en": {"currency": "EUR", "language": "en", "menu_id": null, "revision": 1, "schema_version": 1, "sections": [{"id": "section_caffetteria", "items": [{"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "A cup of coffee", "url": null}, "ingredients": [], "name": "Coffee", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "A cup of American coffee", "url": null}, "ingredients": [], "name": "American Coffee", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_piccola", "image": {"alt": "A small cup of coffee with cream", "url": null}, "ingredients": [], "name": "Coffee with Cream - Small Cup", "pairings": [], "price_cents": 150}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_grande", "image": {"alt": "A large cup of coffee with cream", "url": null}, "ingredients": [], "name": "Coffee with Cream - Large Cup", "pairings": [], "price_cents": 200}], "name": "Cafeteria"}], "venue": {"name": null}}, "es": {"currency": "EUR", "language": "es", "menu_id": null, "revision": 1, "schema_version": 1, "sections": [{"id": "section_caffetteria", "items": [{"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "Una taza de caf\u00e9", "url": null}, "ingredients": [], "name": "Caf\u00e9", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "Una taza de caf\u00e9 americano", "url": null}, "ingredients": [], "name": "Caf\u00e9 Americano", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_piccola", "image": {"alt": "Una taza peque\u00f1a de caf\u00e9 con crema", "url": null}, "ingredients": [], "name": "Caf\u00e9 con Crema - Taza Peque\u00f1a", "pairings": [], "price_cents": 150}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_grande", "image": {"alt": "Una taza grande de caf\u00e9 con crema", "url": null}, "ingredients": [], "name": "Caf\u00e9 con Crema - Taza Grande", "pairings": [], "price_cents": 200}], "name": "Cafeter\u00eda"}], "venue": {"name": null}}, "fr": {"currency": "EUR", "language": "fr", "menu_id": null, "revision": 1, "schema_version": 1, "sections": [{"id": "section_caffetteria", "items": [{"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "Une tasse de caf\u00e9", "url": null}, "ingredients": [], "name": "Caf\u00e9", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "Une tasse de caf\u00e9 am\u00e9ricain", "url": null}, "ingredients": [], "name": "Caf\u00e9 Am\u00e9ricain", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_piccola", "image": {"alt": "Une petite tasse de caf\u00e9 \u00e0 la cr\u00e8me", "url": null}, "ingredients": [], "name": "Caf\u00e9 \u00e0 la Cr\u00e8me - Petite Tasse", "pairings": [], "price_cents": 150}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_grande", "image": {"alt": "Une grande tasse de caf\u00e9 \u00e0 la cr\u00e8me", "url": null}, "ingredients": [], "name": "Caf\u00e9 \u00e0 la Cr\u00e8me - Grande Tasse", "pairings": [], "price_cents": 200}], "name": "Caf\u00e9t\u00e9ria"}], "venue": {"name": null}}, "it": {"currency": "EUR", "language": "it", "menu_id": null, "revision": 1, "schema_version": 1, "sections": [{"id": "section_caffetteria", "items": [{"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "Una tazza di caff\u00e8", "url": null}, "ingredients": [], "name": "Caff\u00e8", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "Una tazza di caff\u00e8 americano", "url": null}, "ingredients": [], "name": "Caff\u00e8 Americano", "pairings": [], "price_cents": 100}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_piccola", "image": {"alt": "Una tazza piccola di caff\u00e8 con panna", "url": null}, "ingredients": [], "name": "Caff\u00e8 con Panna - Tazza Piccola", "pairings": [], "price_cents": 150}, {"dietary": {"gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna_grande", "image": {"alt": "Una tazza grande di caff\u00e8 con panna", "url": null}, "ingredients": [], "name": "Caff\u00e8 con Panna - Tazza Grande", "pairings": [], "price_cents": 200}], "name": "Caffetteria"}], "venue": {"name": null}}};
+    const PLACEHOLDER_IMAGE = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIgogICAgICAgICAgICAgdmlld0JveD0iMCAwIDgwMCA2MDAiPgogICAgICAgICAgPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNDN0MwQjgiLz4KICAgICAgICAgIDxjaXJjbGUgY3g9IjQwMCIgY3k9IjI1MCIgcj0iOTUiIGZpbGw9IiNEOEQwQzkiLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0yNDUgNDU1YzU1LTc1IDEwNS0xMTAgMTU1LTExMHMxMDAgMzUgMTU1IDExMCIKICAgICAgICAgICAgICAgIGZpbGw9Im5vbmUiCiAgICAgICAgICAgICAgICBzdHJva2U9IiM1QTRCNDIiCiAgICAgICAgICAgICAgICBzdHJva2Utd2lkdGg9IjMyIgogICAgICAgICAgICAgICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICAgICAgICA8dGV4dCB4PSI0MDAiIHk9IjU0NSIKICAgICAgICAgICAgICAgIHRleHQtYW5jaG9yPSJtaWRkbGUiCiAgICAgICAgICAgICAgICBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiCiAgICAgICAgICAgICAgICBmb250LXNpemU9IjMwIgogICAgICAgICAgICAgICAgZmlsbD0iIzVBNEI0MiI+CiAgICAgICAgICAgIEltYWdlIHBsYWNlaG9sZGVyCiAgICAgICAgICA8L3RleHQ+CiAgICAgICAgPC9zdmc+";
+
+    const LABELS = {
+      it: {
+        subtitle: "Menù digitale",
+        search: "Cerca piatti o ingredienti...",
+        vegetarian: "Vegetariano",
+        vegan: "Vegano",
+        gluten_free: "Senza glutine",
+        lactose_free: "Senza lattosio",
+        no_results: "Nessun elemento corrisponde alla ricerca o ai filtri.",
+        item_singular: "elemento",
+        item_plural: "elementi"
+      },
+      en: {
+        subtitle: "Digital menu",
+        search: "Search dishes or ingredients...",
+        vegetarian: "Vegetarian",
+        vegan: "Vegan",
+        gluten_free: "Gluten free",
+        lactose_free: "Lactose free",
+        no_results: "No items match your search or filters.",
+        item_singular: "item",
+        item_plural: "items"
+      },
+      fr: {
+        subtitle: "Menu numérique",
+        search: "Rechercher des plats ou ingrédients...",
+        vegetarian: "Végétarien",
+        vegan: "Végétalien",
+        gluten_free: "Sans gluten",
+        lactose_free: "Sans lactose",
+        no_results: "Aucun élément ne correspond à la recherche ou aux filtres.",
+        item_singular: "élément",
+        item_plural: "éléments"
+      },
+      de: {
+        subtitle: "Digitales Menü",
+        search: "Gerichte oder Zutaten suchen...",
+        vegetarian: "Vegetarisch",
+        vegan: "Vegan",
+        gluten_free: "Glutenfrei",
+        lactose_free: "Laktosefrei",
+        no_results: "Keine Einträge entsprechen der Suche oder den Filtern.",
+        item_singular: "Eintrag",
+        item_plural: "Einträge"
+      },
+      es: {
+        subtitle: "Menú digital",
+        search: "Buscar platos o ingredientes...",
+        vegetarian: "Vegetariano",
+        vegan: "Vegano",
+        gluten_free: "Sin gluten",
+        lactose_free: "Sin lactosa",
+        no_results: "Ningún elemento coincide con la búsqueda o los filtros.",
+        item_singular: "elemento",
+        item_plural: "elementos"
+      }
+    };
+
+    const state = {
+      language: "it",
+      search: "",
+      filters: new Set()
+    };
+
+    const languageSelect = document.getElementById("language-select");
+    const searchInput = document.getElementById("search-input");
+    const filterRow = document.getElementById("filter-row");
+    const menuRoot = document.getElementById("menu-root");
+    const venueName = document.getElementById("venue-name");
+    const menuSubtitle = document.getElementById("menu-subtitle");
+
+    function labels() {
+      return LABELS[state.language] || LABELS.en;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function normalize(value) {
+      return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function formatPrice(priceCents, currency) {
+      if (priceCents === null || priceCents === undefined) {
+        return "";
+      }
+
+      try {
+        return new Intl.NumberFormat(state.language, {
+          style: "currency",
+          currency: currency || "EUR"
+        }).format(priceCents / 100);
+      } catch {
+        return `${(priceCents / 100).toFixed(2)} ${currency || "EUR"}`;
+      }
+    }
+
+    function itemMatchesSearch(item) {
+      if (!state.search) {
+        return true;
+      }
+
+      const haystack = normalize([
+        item.name,
+        ...(item.ingredients || [])
+      ].join(" "));
+
+      return haystack.includes(normalize(state.search));
+    }
+
+    function itemMatchesFilters(item) {
+      if (state.filters.size === 0) {
+        return true;
+      }
+
+      const dietary = item.dietary || {};
+
+      return [...state.filters].every(
+        filterName => dietary[filterName] === true
+      );
+    }
+
+    function renderDietaryTags(item) {
+      const dietary = item.dietary || {};
+      const currentLabels = labels();
+
+      return Object.entries(dietary)
+        .filter(([, value]) => value === true)
+        .map(([key]) => {
+          const label = currentLabels[key] || key;
+          return `<span class="tag">${escapeHtml(label)}</span>`;
+        })
+        .join("");
+    }
+
+    function renderItem(item, currency) {
+      const imageUrl =
+        item?.image?.url ||
+        PLACEHOLDER_IMAGE;
+
+      const imageAlt =
+        item?.image?.alt ||
+        item.name ||
+        "";
+
+      const ingredients = (item.ingredients || []).join(", ");
+
+      return `
+        <article class="menu-card" data-item-id="${escapeHtml(item.id)}">
+          <img
+            src="${escapeHtml(imageUrl)}"
+            alt="${escapeHtml(imageAlt)}"
+            loading="lazy"
+          />
+
+          <div class="menu-card-content">
+            <div class="item-heading">
+              <h3>${escapeHtml(item.name)}</h3>
+              <span class="price">
+                ${escapeHtml(formatPrice(item.price_cents, currency))}
+              </span>
+            </div>
+
+            ${
+              ingredients
+                ? `<p class="ingredients">${escapeHtml(ingredients)}</p>`
+                : ""
+            }
+
+            <div class="dietary-tags">
+              ${renderDietaryTags(item)}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMenu() {
+      const menu = MENUS[state.language];
+
+      if (!menu) {
+        menuRoot.innerHTML =
+          '<div class="empty-state">Menu unavailable.</div>';
+        return;
+      }
+
+      const currentLabels = labels();
+
+      document.documentElement.lang = state.language;
+      searchInput.placeholder = currentLabels.search;
+      menuSubtitle.textContent = currentLabels.subtitle;
+
+      const venue = menu.venue || {};
+      venueName.textContent = venue.name || "Menu";
+
+      document.querySelectorAll(".filter-btn").forEach(button => {
+        const key = button.dataset.filter;
+        button.textContent = currentLabels[key] || key;
+      });
+
+      let visibleItemsTotal = 0;
+
+      const sectionsHtml = (menu.sections || [])
+        .map(section => {
+          const filteredItems = (section.items || []).filter(
+            item => itemMatchesSearch(item) && itemMatchesFilters(item)
+          );
+
+          if (filteredItems.length === 0) {
+            return "";
+          }
+
+          visibleItemsTotal += filteredItems.length;
+
+          const countLabel =
+            filteredItems.length === 1
+              ? currentLabels.item_singular
+              : currentLabels.item_plural;
+
+          return `
+            <section class="section" data-section-id="${escapeHtml(section.id)}">
+              <div class="section-header">
+                <h2>${escapeHtml(section.name)}</h2>
+                <span class="section-count">
+                  ${filteredItems.length} ${escapeHtml(countLabel)}
+                </span>
+              </div>
+
+              <div class="items-grid">
+                ${filteredItems
+                  .map(item => renderItem(item, menu.currency))
+                  .join("")}
+              </div>
+            </section>
+          `;
+        })
+        .join("");
+
+      if (visibleItemsTotal === 0) {
+        menuRoot.innerHTML = `
+          <div class="empty-state">
+            ${escapeHtml(currentLabels.no_results)}
+          </div>
+        `;
+        return;
+      }
+
+      menuRoot.innerHTML = sectionsHtml;
+    }
+
+    languageSelect.addEventListener("change", event => {
+      state.language = event.target.value;
+      renderMenu();
+    });
+
+    searchInput.addEventListener("input", event => {
+      state.search = event.target.value;
+      renderMenu();
+    });
+
+    filterRow.addEventListener("click", event => {
+      const button = event.target.closest(".filter-btn");
+
+      if (!button) {
+        return;
+      }
+
+      const filterName = button.dataset.filter;
+
+      if (state.filters.has(filterName)) {
+        state.filters.delete(filterName);
+        button.classList.remove("active");
+      } else {
+        state.filters.add(filterName);
+        button.classList.add("active");
+      }
+
+      renderMenu();
+    });
+
+    renderMenu();
+  </script>
+</body>
+</html>
