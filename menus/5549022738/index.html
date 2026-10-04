@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#E6E1DC">
+<title>Menu</title>
+<style>
+:root{--paper:#fcfcf8;--white:#fff;--ink:#234b43;--muted:#65716a;--line:#d8dfd5;--red:#ad3b40;--mint:#edf3ec;--rose:#f8eeed;--focus:#a92f39;--sans:Arial,Helvetica,sans-serif;--serif:Georgia,'Times New Roman',serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:145px}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 var(--sans);letter-spacing:0}button,input,select{font:inherit;color:inherit}button,input,select,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button{background:none;border:0}button:disabled{opacity:.45;cursor:default}a{color:inherit}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--focus);outline-offset:4px}button:hover:not(:disabled){color:var(--red)}[hidden]{display:none!important}.sr{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}.skip{position:fixed;left:16px;top:-100px;z-index:100;background:var(--white);padding:12px}.skip:focus{top:12px}.wrap{width:min(1360px,calc(100% - 96px));margin:auto}.topline{background:var(--ink);color:#fff;padding:9px 0;font-size:10px;text-transform:uppercase}.topline .wrap{display:flex;justify-content:space-between;gap:16px}.topline span:last-child{opacity:.8}.masthead{padding-top:22px}.mast-top{display:flex;justify-content:space-between;gap:18px;align-items:center;font-size:10px}.identity{display:flex;align-items:center;gap:9px}.identity i{width:6px;height:6px;background:var(--red);border-radius:50%}.utilities{display:flex;gap:20px;align-items:center}.language{background:transparent;border:0;padding:8px 0;max-width:118px;font-size:12px}.selection-top{display:flex;align-items:center;gap:9px;font-size:12px;min-height:40px}.counter{width:24px;height:24px;border-radius:50%;background:var(--mint);display:grid;place-items:center;font-size:11px;flex-shrink:0}.mast-title{padding:14px 0 26px;display:flex;justify-content:space-between;align-items:end;gap:30px}.mast-title h1{font:italic 112px/.95 var(--serif);margin:0;color:var(--red)}.mast-title .subtitle{font:italic 22px var(--serif);margin:13px 0 0}.mast-note{font-size:11px;text-align:right;margin:0 0 3px;line-height:1.8}.mast-note strong{font:italic 22px var(--serif);font-weight:400;display:block}.mast-rule{height:5px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}.navigation{position:sticky;top:0;z-index:15;background:var(--paper);border-bottom:1px solid var(--line)}.nav-inner{display:flex;align-items:center;gap:30px;min-height:66px}.categories{display:flex;gap:25px;overflow-x:auto;scrollbar-width:thin;min-width:0;flex:1}.categories a{font-size:13px;text-decoration:none;white-space:nowrap;padding:21px 0 17px;border-bottom:3px solid transparent}.categories a.active{color:var(--red);border-color:var(--red)}.search{width:300px;position:relative;flex-shrink:0}.search input{border:1px solid var(--line);background:white;width:100%;height:40px;padding:9px 35px 9px 12px;border-radius:3px;font-size:12px}.search input::placeholder{color:var(--muted);opacity:1}.search-clear{position:absolute;right:2px;top:2px;width:36px;height:36px;font-size:20px}.workbench{display:flex;align-items:center;gap:16px;padding:10px 0 13px;min-height:57px}.filter-trigger{border:1px solid var(--line);padding:8px 13px;min-height:35px;border-radius:3px;font-size:12px;display:flex;gap:10px;align-items:center}.filter-trigger[aria-expanded=true]{background:var(--ink);color:#fff}.filter-trigger span:last-child{font-size:17px;line-height:1}.active-filters{display:flex;gap:7px;flex:1;min-width:0;flex-wrap:wrap}.active-filter{font-size:11px;background:var(--mint);border:1px solid var(--line);border-radius:3px;padding:5px 9px;display:flex;gap:9px;align-items:center}.sort{display:flex;align-items:center;gap:8px;font-size:11px;margin-left:auto}.sort select{font-size:11px;background:var(--paper);border:0;padding:6px 0;max-width:160px}.filter-panel{padding:17px 0 23px;border-top:1px solid var(--line)}.filter-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:35px}.filter-grid fieldset{margin:0;padding:0;border:0;min-width:0}.filter-grid legend{font-size:11px;font-weight:bold;margin-bottom:12px}.checks{display:flex;gap:7px 18px;flex-wrap:wrap}.checks label{display:flex;gap:7px;align-items:center;font-size:12px;min-height:32px;cursor:pointer}.checks input{accent-color:var(--ink);width:15px;height:15px;margin:0}.range-label{display:flex;justify-content:space-between;gap:10px;font-size:12px}.range-row{display:flex;gap:15px;align-items:center;margin-top:10px}.range-row input{width:100%;accent-color:var(--red)}.filter-hint{color:var(--muted);font-size:11px;margin:13px 0 0}.filter-bottom{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:18px}.filter-bottom button{font-size:12px;text-decoration:underline;text-underline-offset:4px}.filter-bottom span{font-size:11px;color:var(--muted)}.page-grid{display:grid;grid-template-columns:minmax(0,1fr) 278px;gap:60px;padding-top:32px}.menu-intro{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding-bottom:24px}.eyebrow{font-size:10px;text-transform:uppercase;margin:0;color:var(--muted)}.menu-intro p:last-child{font:italic 17px var(--serif);margin:0;color:var(--muted)}.section{margin-bottom:40px;scroll-margin-top:155px}.section-head{display:flex;gap:13px;align-items:baseline;margin:0 0 19px}.section-num{font:italic 16px var(--serif);color:var(--red)}.section-head h2{font:normal 34px/1.15 var(--serif);margin:0;flex:1}.section-head>span:last-child{font-size:10px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 25px}.item{min-width:0;border-bottom:1px solid var(--line);padding:21px 0;position:relative}.item.featured{padding-top:0}.photo{width:100%;padding:0;display:block;overflow:hidden;background:var(--mint);position:relative;margin-bottom:17px}.photo img{display:block;width:100%;height:auto;aspect-ratio:1.65;object-fit:cover;transition:transform .35s}.photo:hover img{transform:scale(1.035)}.photo .zoom{position:absolute;right:10px;bottom:10px;display:grid;place-items:center;background:var(--white);width:29px;height:29px;border-radius:50%;font-size:21px}.item-heading{display:flex;gap:15px;align-items:baseline}.item h3{font:normal 25px/1.15 var(--serif);margin:0;min-width:0;flex:1;overflow-wrap:anywhere}.name-button{text-align:left;font:inherit;padding:0}.price{color:var(--red);font-size:14px;white-space:nowrap;flex-shrink:0;font-variant-numeric:tabular-nums}.from{font:10px var(--sans);display:block;color:var(--muted);text-align:right;margin-bottom:3px}.ingredients{font-size:12px;color:var(--muted);line-height:1.65;margin:9px 0 11px;max-width:50ch}.tags{display:flex;gap:6px;flex-wrap:wrap;min-height:20px}.tag{font-size:9px;text-transform:uppercase;background:var(--mint);padding:3px 6px;border-radius:2px;color:#436149}.tag.alcohol-free{background:var(--rose);color:var(--red)}.item-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px}.compare-label{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;min-height:36px;cursor:pointer}.compare-label input{accent-color:var(--ink);width:13px;height:13px;margin:0}.add-button{border:1px solid var(--line);min-width:36px;height:36px;border-radius:50%;font-size:21px;display:grid;place-items:center;padding:0}.add-button.selected{background:var(--ink);border-color:var(--ink);color:#fff;font-size:14px}.why{font-size:10px;color:var(--red);margin:11px 0 0}.section-note{font-size:11px;color:var(--muted);margin:0 0 17px}.side{position:sticky;top:145px;align-self:start;border-top:3px double var(--ink);padding-top:21px}.side-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.side h2{font:25px var(--serif);font-weight:normal;margin:0}.side-empty{color:var(--muted);font:italic 18px/1.5 var(--serif);margin:25px 0 30px}.side-caption{font-size:10px;color:var(--muted);padding-top:12px;border-top:1px solid var(--line)}.selected-row{border-bottom:1px solid var(--line);padding:17px 0}.selected-row .row-top{display:flex;gap:15px;justify-content:space-between}.selected-row h3{font-size:12px;font-weight:normal;margin:0}.selected-row .variant-note{font-size:10px;color:var(--muted);margin:3px 0}.selected-row .row-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:9px}.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:3px;height:30px}.stepper button{width:29px;height:29px;font-size:17px}.stepper output{width:27px;text-align:center;font-size:11px;font-variant-numeric:tabular-nums}.row-price{font-size:12px}.remove{font-size:19px;min-width:28px;min-height:28px}.total-row{display:flex;justify-content:space-between;gap:14px;padding:19px 0 12px;font-size:12px}.total-row strong{font-size:19px;font-weight:normal}.primary{background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:3px;padding:12px 17px;min-height:44px;cursor:pointer}.primary:hover:not(:disabled){background:#163930;color:#fff}.secondary{border:1px solid var(--line);padding:11px 16px;border-radius:3px;min-height:44px}.full{width:100%}.selection-notes{font-size:10px;color:var(--muted);line-height:1.6;margin:11px 0}.compare-dock{position:fixed;left:24px;bottom:20px;z-index:22;background:var(--ink);color:white;padding:10px 12px 10px 19px;display:flex;align-items:center;gap:18px;box-shadow:0 6px 24px #18342c22;border-radius:4px}.compare-dock span{font-size:12px}.compare-dock button{min-height:38px;font-size:12px;color:inherit}.compare-dock .compare-open{background:white;color:var(--ink);padding:8px 13px;border-radius:2px}.compare-dock .compare-clear{font-size:23px;width:32px}.mobile-bar{display:none}.empty-state{padding:60px 0;text-align:center}.empty-state h2{font:30px var(--serif);font-weight:normal}.empty-state p{font-size:13px;color:var(--muted)}.empty-state button{margin-top:8px}.footer{margin-top:45px;border-top:1px solid var(--line);padding:26px 0 40px}.footer-inner{display:flex;justify-content:space-between;gap:40px}.footer-name{font:italic 40px var(--serif);color:var(--red)}.footer-notes{max-width:700px;font-size:11px;color:var(--muted)}.footer-notes p{margin:0 0 9px}.footer-demo{font-size:10px;margin:24px 0 0;color:var(--muted)}dialog{padding:0;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);width:min(600px,calc(100% - 28px));max-height:90dvh;overflow:auto;overscroll-behavior:contain}dialog::backdrop{background:#132e28ab;backdrop-filter:blur(5px)}body:has(dialog[open]){overflow:hidden}.modal-close{position:absolute;right:13px;top:13px;z-index:3;border:1px solid var(--line);background:var(--paper);width:38px;height:38px;font-size:24px;border-radius:50%}.detail-photo{display:block;width:100%;height:auto;aspect-ratio:1.8;object-fit:cover}.detail-content{padding:27px}.detail-content h2{font:35px/1.1 var(--serif);font-weight:normal;margin:9px 0 15px;padding-right:28px}.detail-price{font-size:20px;color:var(--red)}.detail-content h3{font-size:11px;text-transform:uppercase;margin:24px 0 8px}.detail-content .ingredients{font-size:14px}.detail-content .tags{margin:15px 0}.variant-options{display:grid;gap:8px;margin:19px 0;border:0;padding:0}.variant-options legend{font-size:11px;padding:0 0 10px}.variant-option{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--line);padding:12px;border-radius:3px;cursor:pointer}.variant-option:has(input:checked){border-color:var(--ink);background:var(--mint)}.variant-option input{accent-color:var(--ink)}.variant-option span:first-of-type{flex:1}.variant-option span:last-child{font-size:12px}.detail-actions{display:flex;gap:12px;margin-top:25px}.detail-actions .primary{flex:1}.suggestions{margin-top:28px;border-top:1px solid var(--line);padding-top:5px}.suggestions button{display:block;text-align:left;width:100%;padding:12px 0;border-bottom:1px solid var(--line)}.suggestions strong{font:19px var(--serif);font-weight:normal}.suggestions small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.detail-warning{font-size:11px;color:var(--muted);margin:20px 0 0}.modal-pad{padding:30px}.modal-title{font:32px var(--serif);font-weight:normal;margin:0 45px 14px 0}.modal-sub{font-size:12px;color:var(--muted);margin:0 0 23px}#compare-dialog{width:min(960px,calc(100% - 28px))}.comparison-scroll{overflow-x:auto}.comparison-table{border-collapse:collapse;width:100%;table-layout:fixed;min-width:440px}.comparison-table th,.comparison-table td{vertical-align:top;border-bottom:1px solid var(--line);text-align:left;padding:15px 14px;font-size:12px;font-weight:normal;overflow-wrap:anywhere}.comparison-table th[scope=row]{width:115px;font-size:11px;color:var(--muted);padding-left:0}.comparison-table thead th{font:23px/1.2 var(--serif)}.comparison-table td .tag{display:inline-block;margin:0 3px 5px 0}.comparison-table .price{font-size:16px}.different{background:var(--mint)}.comparison-table td button{margin-top:8px;width:100%;font-size:12px}.compare-remove{font:12px var(--sans)!important;color:var(--muted);text-decoration:underline;padding:10px 0 0}.staff-item{padding:22px 0;border-bottom:1px solid var(--line);display:flex;gap:20px;align-items:start}.staff-qty{font:34px var(--serif);color:var(--red);min-width:40px}.staff-item h3{font:28px/1.15 var(--serif);margin:0;font-weight:normal}.staff-item p{font-size:14px;margin:7px 0 0;color:var(--muted)}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:70;max-width:calc(100% - 32px);width:max-content;background:var(--ink);color:#fff;padding:13px 20px;border-radius:4px;font-size:12px;box-shadow:0 3px 20px #18342c30}.filtered #categories a.active{border-color:transparent;color:inherit}
+@media(min-width:1600px){.wrap{width:min(1420px,calc(100% - 120px))}.mast-title{padding-block:21px 31px}.page-grid{gap:80px}}
+@media(max-width:1100px){.wrap{width:calc(100% - 48px)}.page-grid{gap:30px;grid-template-columns:minmax(0,1fr) 235px}.nav-inner{gap:20px}.categories{gap:17px}.search{width:245px}.item h3{font-size:23px}.mast-title h1{font-size:95px}.filter-grid{gap:20px}.side h2{font-size:23px}}
+@media(max-width:850px){.page-grid{display:block}.side{display:none}.mobile-bar{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--line);z-index:20;padding:10px 20px calc(10px + env(safe-area-inset-bottom));align-items:center;justify-content:space-between;gap:20px}.mobile-bar .primary{flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:400px}.mobile-bar>span{font-size:12px}.mobile-bar strong{font-weight:normal}.footer{padding-bottom:110px}.compare-dock{left:18px;right:18px;bottom:82px;justify-content:space-between;gap:10px}.compare-dock .compare-open{margin-left:auto}.filter-grid{grid-template-columns:1fr 1fr}.filter-grid fieldset:last-child{grid-column:1/-1}.nav-inner{flex-wrap:wrap;gap:0;padding-top:12px}.categories{order:2;flex-basis:100%}.search{width:100%}.categories a{padding-block:15px 12px}.filter-panel{max-height:44dvh;overflow-y:auto}.toast{bottom:155px}}
+@media(max-width:560px){html{scroll-padding-top:160px}.wrap{width:calc(100% - 36px)}.topline{font-size:8px;padding:8px 0}.masthead{padding-top:10px}.mast-top{font-size:8px;gap:10px}.utilities{gap:8px}.language{font-size:11px;max-width:90px}.selection-top{padding:0}.selection-top .top-label{display:none}.mast-title{padding:10px 0 23px;gap:18px}.mast-title h1{font-size:82px}.mast-title .subtitle{font-size:17px;margin-top:11px}.mast-note{font-size:9px;line-height:1.6}.mast-note strong{font-size:17px}.categories{gap:23px}.categories a{font-size:12px}.workbench{gap:9px;flex-wrap:wrap;padding:10px 0}.filter-trigger{font-size:11px}.sort{font-size:10px}.sort-label{display:none}.sort select{max-width:135px;font-size:11px}.active-filters:not(:empty){flex-basis:100%;order:3}.filter-grid{grid-template-columns:1fr;gap:20px}.filter-grid fieldset:last-child{grid-column:auto}.checks label{font-size:12px}.filter-hint{font-size:10px}.page-grid{padding-top:25px}.menu-intro{padding-bottom:20px}.menu-intro p:last-child{font-size:15px}.menu-intro .eyebrow{font-size:9px}.section{margin-bottom:32px}.section-head h2{font-size:31px}.grid{gap:0 18px}.item h3{font-size:22px}.item{padding:20px 0}.item-heading{gap:12px}.price{font-size:13px}.grid>.item{grid-column:1/-1}.grid>.item.featured .photo img{aspect-ratio:1.65}.item.featured{padding-top:0;margin-bottom:10px}.photo{margin-bottom:14px}.item-tools{margin-top:6px}.ingredients{font-size:13px;line-height:1.6}.tags{min-height:0}.tag{font-size:9px}.item:not(.featured) .item-tools{margin-top:5px}.item:not(.featured) .tags:empty{display:none}.section-note{font-size:11px}.footer{margin-top:20px}.footer-inner{display:block}.footer-name{font-size:38px;display:block;margin-bottom:15px}.modal-pad{padding:24px 19px}.modal-title{font-size:28px}.detail-content{padding:23px}.detail-content h2{font-size:31px}.comparison-table th,.comparison-table td{padding:13px 10px}.comparison-table th[scope=row]{width:95px}.comparison-table thead th{font-size:20px}.staff-item h3{font-size:24px}.staff-item{gap:12px}.mobile-bar{padding-inline:18px}.photo .zoom{width:31px;height:31px}}
+@media(max-width:360px){.mast-note{display:none}.mast-title h1{font-size:76px}.identity{font-size:7px}.workbench{gap:7px}.sort select{max-width:122px}.section-head h2{font-size:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.comparison-table{min-width:700px}
+.comparison-table th[scope=row],.comparison-table thead th:first-child{position:sticky;left:0;background:var(--paper);z-index:1;width:115px}
+.comparison-scroll{scroll-behavior:smooth;scrollbar-width:thin}
+.comparison-nav{display:none;justify-content:flex-end;gap:8px;margin-bottom:10px}
+.comparison-nav button{width:36px;height:34px;border:1px solid var(--line);border-radius:3px;font-size:20px}
+@media(max-width:850px){.comparison-nav{display:flex}.comparison-table th[scope=row],.comparison-table thead th:first-child{width:100px}}
+@media(prefers-reduced-motion:reduce){.comparison-scroll{scroll-behavior:auto}}
+@media print{.navigation,.utilities,.side,.mobile-bar,.compare-dock,.item-tools,.toast,.topline,dialog{display:none!important}.wrap{width:100%}.page-grid{display:block}.mast-title h1{font-size:50px}.grid{grid-template-columns:1fr 1fr}.item{break-inside:avoid}.photo img{max-height:140px;object-fit:contain}.footer{padding-bottom:0}}
+
+:root {
+  --paper:#E6E1DC; --white:#FFFFFF;
+  --ink:#1A1A1A; --muted:#3C322D;
+  --line:#D0CACA; --red:#5A3228;
+  --mint:#F0EBE6; --rose:#D8C8BB;
+  --focus:#000000;
+  --action:#5A3228; --action-text:#FFFFFF;
+}
+body { overflow-wrap:anywhere }
+.topline { background:var(--action);color:var(--action-text) }
+.mast-title { display:block }
+.mast-title h1 { max-width:100%;font-size:88px;line-height:1.06 }
+.mast-title h1.long-name { font-size:54px }
+.mast-title h1.very-long-name { font-size:38px }
+.utilities { margin-left:auto }
+.primary,.filter-trigger[aria-expanded=true],.add-button.selected,.compare-dock,.toast {
+  background:var(--action);color:var(--action-text);border-color:var(--action)
+}
+.primary:hover:not(:disabled) { background:var(--action);color:var(--action-text);filter:brightness(.9) }
+.add-button.selected:hover:not(:disabled),.filter-trigger[aria-expanded=true]:hover:not(:disabled),
+.compare-dock .compare-clear:hover:not(:disabled) { color:var(--action-text) }
+.tag,.tag.alcohol-free { background:#D8C8BB;color:#3C322D }
+.search input { background:var(--white) }
+.counter { color:var(--ink) }
+.item-heading { flex-wrap:wrap }
+.item-heading h3 { flex:1 1 145px }
+.item-heading .price { max-width:100%;white-space:normal;text-align:right;overflow-wrap:anywhere }
+.price { line-height:1.4 }
+.photo { background:#EFEFEF }
+.photo img { object-fit:contain;aspect-ratio:1.65 }
+.detail-photo { object-fit:contain;background:var(--white) }
+.item-tools .add-button { margin-left:auto;flex-shrink:0 }
+.ingredients,.variant-note,.row-top>div,.row-price,.variant-option span { min-width:0;overflow-wrap:anywhere }
+.row-bottom { gap:12px }
+.side { top:var(--navigation-offset,145px) }
+.section { scroll-margin-top:0 }
+.stepper { flex-shrink:0 }
+.topline .wrap { justify-content:center }
+.menu-intro { min-height:24px }
+.diet-notes,.allergen-reason { color:var(--muted);font-size:12px;line-height:1.6 }
+.allergen-list { padding-left:18px }
+.allergen-list li { margin:8px 0 }
+.allergen-reason { margin:3px 0 }
+.detail-warning { border-top:1px solid var(--line);padding-top:16px }
+.variant-option input { flex-shrink:0 }
+.variant-option span:last-child { text-align:right }
+.comparison-table .price { white-space:normal }
+.comparison-table th[scope=row] { width:105px }
+.comparison-table { min-width:630px }
+.nav-inner:has(.categories[hidden]) .search { flex:1;max-width:550px;margin-left:auto }
+.navigation:not(:has(.nav-inner:not([hidden]),.workbench:not([hidden]))) { display:none }
+.ssr-variants { padding-left:18px }
+.no-results { color:var(--muted) }
+.footer-notes:empty { display:none }
+@media(max-width:850px) {
+  .mast-title h1 { font-size:68px }
+  .mast-title h1.long-name { font-size:46px }
+  .mast-title h1.very-long-name { font-size:34px }
+  .mobile-bar { gap:10px }
+  .mobile-bar .primary { min-width:0;max-width:none }
+  .mobile-bar>span { min-width:0;max-width:32%;text-align:right;font-size:11px }
+  .filter-grid { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)) }
+}
+@media(max-width:560px) {
+  .mast-title h1 { font-size:64px }
+  .mast-title h1.long-name { font-size:42px }
+  .mast-title h1.very-long-name { font-size:32px }
+  .mast-title .subtitle { max-width:36ch }
+  .filter-grid { grid-template-columns:1fr }
+  .detail-actions .primary { font-size:13px }
+}
+@media print {
+  .item-heading h3 { flex-basis:120px }
+  .footer { padding-bottom:0 }
+  .section { break-inside:auto }
+}
+</style>
+</head>
+<body>
+<a href="#menu" class="skip" data-t="menuTitle">Menu</a>
+<div class="topline"><div class="wrap"><span data-t="menuTitle">Menu</span></div></div>
+<header class="masthead wrap">
+  <div class="mast-top">
+    <div class="utilities">
+      <select id="language" class="language" aria-label="Language" >
+        <option value="it" selected>it</option><option value="fr" >fr</option><option value="de" >de</option><option value="es" >es</option><option value="en" >en</option>
+      </select>
+      <button class="selection-top" data-open-selection><span class="top-label" data-t="mySelection">My selection</span><span class="counter selection-count">0</span></button>
+    </div>
+  </div>
+  <div class="mast-title">
+    <h1 id="venue-name">Menu</h1>
+    <p class="subtitle" id="venue-subtitle" hidden></p>
+  </div>
+  <div class="mast-rule"></div>
+</header>
+<div class="navigation">
+  <div class="wrap">
+    <div class="nav-inner" id="nav-inner">
+      <nav class="categories" id="categories" aria-label="Menu"></nav>
+      <div class="search" id="search-box">
+        <label class="sr" for="search" data-t="searchLabel">Search the menu</label>
+        <input id="search" type="search" autocomplete="off" spellcheck="false">
+        <button id="search-clear" class="search-clear" aria-label="Clear search" hidden>&times;</button>
+      </div>
+    </div>
+    <div class="workbench" id="workbench">
+      <button class="filter-trigger" id="filter-trigger" aria-expanded="false" aria-controls="filter-panel"><span data-t="filters">Filters</span><span aria-hidden="true">+</span></button>
+      <div class="active-filters" id="active-filters"></div>
+      <label class="sort" id="sort-control"><span class="sort-label" data-t="sort">Sort</span><select id="sort"><option value="menu" data-t="menuOrder">Menu order</option><option value="asc" data-t="priceAsc">Price: low to high</option><option value="desc" data-t="priceDesc">Price: high to low</option></select></label>
+    </div>
+    <div class="filter-panel" id="filter-panel" hidden>
+      <div class="filter-grid">
+        <fieldset id="diet-field"><legend data-t="dietTitle">Declared attributes</legend><div class="checks" id="diet-filters"></div></fieldset>
+        <fieldset id="format-field"><legend data-t="formatTitle">Format</legend><div class="checks" id="format-filters"></div></fieldset>
+        <fieldset id="budget-field"><legend data-t="budgetTitle">Price per item</legend><label class="range-label" for="budget"><span data-t="maxPrice">Up to</span><output id="budget-output"></output></label><div class="range-row"><input id="budget" type="range" min="0" step="1"></div></fieldset>
+      </div>
+      <div class="filter-bottom"><button id="reset-filters" data-t="reset">Reset filters</button></div>
+    </div>
+  </div>
+</div>
+<div class="wrap page-grid">
+  <main id="menu">
+    <div class="menu-intro"><p class="eyebrow" id="results" role="status" aria-live="polite"></p></div>
+    <div id="menu-root">
+      
+      <section class="section">
+        <div class="section-head"><h2>CAFFETTERIA</h2></div>
+        
+        <div class="grid">
+          
+          <article class="item">
+            
+            <div class="item-heading"><h3>CAFFÈ</h3></div>
+            
+            
+            <ul class="ssr-variants"><li>
+              
+              1,00 €
+            </li></ul>
+            
+          </article>
+          
+          <article class="item">
+            
+            <div class="item-heading"><h3>CAFFÈ AMERICANO</h3></div>
+            
+            
+            <ul class="ssr-variants"><li>
+              
+              1,00 €
+            </li></ul>
+            
+          </article>
+          
+          <article class="item">
+            
+            <div class="item-heading"><h3>CAFFÈ CON PANNA</h3></div>
+            
+            <p class="ingredients">Panna</p>
+            <ul class="ssr-variants"><li>
+              TAZZA PICCOLA: 
+              1,50 €
+            </li><li>
+              TAZZA GRANDE: 
+              2,00 €
+            </li></ul>
+            
+          </article>
+          
+        </div>
+      </section>
+      
+    </div>
+    <div class="empty-state" id="empty" hidden><h2 data-t="emptyTitle"></h2><button class="secondary" id="empty-reset" data-t="showAll"></button></div>
+  </main>
+  <aside class="side" aria-labelledby="side-title">
+    <div class="side-heading"><h2 id="side-title" data-t="mySelection"></h2><span class="counter selection-count">0</span></div>
+    <div id="side-items"></div><div id="side-summary"></div>
+    <p class="side-caption" data-t="selectionCaption"></p>
+  </aside>
+</div>
+<footer class="footer"><div class="wrap footer-inner"><span class="footer-name" id="footer-name"></span><div class="footer-notes" id="footer-notes"></div></div></footer>
+<div class="compare-dock" id="compare-dock" hidden><span id="compare-summary" aria-live="polite"></span><button id="compare-open" class="compare-open" data-t="compare"></button><button id="compare-clear" class="compare-clear" aria-label="Clear comparison">&times;</button></div>
+<div class="mobile-bar"><button class="primary" data-open-selection><span data-t="mySelection"></span><span class="selection-count">0</span></button><span class="selection-total"></span></div>
+<dialog id="detail-dialog" aria-labelledby="detail-title"><button class="modal-close" data-close="detail-dialog" aria-label="Close">&times;</button><div id="detail-root"></div></dialog>
+<dialog id="compare-dialog" aria-labelledby="compare-title"><button class="modal-close" data-close="compare-dialog" aria-label="Close">&times;</button><div class="modal-pad"><h2 class="modal-title" id="compare-title" data-t="comparison"></h2><div class="comparison-nav"><button data-scroll-compare="-1" aria-label="Previous">&larr;</button><button data-scroll-compare="1" aria-label="Next">&rarr;</button></div><div class="comparison-scroll" id="comparison-root" tabindex="0" role="region" aria-labelledby="compare-title"></div></div></dialog>
+<dialog id="selection-dialog" aria-labelledby="selection-title"><button class="modal-close" data-close="selection-dialog" aria-label="Close">&times;</button><div class="modal-pad"><h2 class="modal-title" id="selection-title" data-t="mySelection"></h2><p class="modal-sub" data-t="selectionCaption"></p><div id="selection-items"></div><div id="selection-summary"></div></div></dialog>
+<dialog id="staff-dialog" aria-labelledby="staff-title"><button class="modal-close" data-close="staff-dialog" aria-label="Close">&times;</button><div class="modal-pad"><h2 class="modal-title" id="staff-title" data-t="ourChoice"></h2><p class="modal-sub" data-t="staffNote"></p><div id="staff-root"></div></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script id="menu-data" type="application/json">{"de": {"currency": "EUR", "ingredient_names": {"ingredient_cream": "Sahne"}, "issues": [], "language": "de", "menu_id": null, "notes": [], "revision": 1, "schema_version": 2, "sections": [{"description": null, "id": "section_caffetteria", "items": [{"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "KAFFEE", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "KAFFEE", "notes": [], "original_name": "CAFF\u00c8", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "AMERIKANISCHER KAFFEE", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "AMERIKANISCHER KAFFEE", "notes": [], "original_name": "CAFF\u00c8 AMERICANO", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8 AMERICANO\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [{"id": "milk", "ingredient_ids": ["ingredient_cream"], "reason": "Sahne ist ausdr\u00fccklich als Zutat aufgef\u00fchrt"}], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna", "image": {"alt": "KAFFEE MIT SAHNE", "url": null}, "ingredient_ids": ["ingredient_cream"], "ingredients": ["Sahne"], "name": "KAFFEE MIT SAHNE", "notes": [], "original_name": "CAFF\u00c8 CON PANNA", "price_cents": 150, "source": {"page": 1, "text": "CAFF\u00c8 CON PANNA\nTAZZA PICCOLA\n1,50 \u20ac\nTAZZA GRANDE\n2,00 \u20ac"}, "variants": [{"format": "small", "id": "tazza-piccola", "label": "KLEINE TASSE", "original_label": "TAZZA PICCOLA", "price_cents": 150, "price_kind": "fixed", "price_text": "1,50 \u20ac", "quantity": null}, {"format": "large", "id": "tazza-grande", "label": "GROSSE TASSE", "original_label": "TAZZA GRANDE", "price_cents": 200, "price_kind": "fixed", "price_text": "2,00 \u20ac", "quantity": null}]}], "name": "CAFETERIA"}], "source_language": "it", "venue": {"name": null, "subtitle": null}}, "en": {"currency": "EUR", "ingredient_names": {"ingredient_cream": "Cream"}, "issues": [], "language": "en", "menu_id": null, "notes": [], "revision": 1, "schema_version": 2, "sections": [{"description": null, "id": "section_caffetteria", "items": [{"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "COFFEE", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "COFFEE", "notes": [], "original_name": "CAFF\u00c8", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "AMERICAN COFFEE", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "AMERICAN COFFEE", "notes": [], "original_name": "CAFF\u00c8 AMERICANO", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8 AMERICANO\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [{"id": "milk", "ingredient_ids": ["ingredient_cream"], "reason": "cream is explicitly listed as an ingredient"}], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna", "image": {"alt": "COFFEE WITH CREAM", "url": null}, "ingredient_ids": ["ingredient_cream"], "ingredients": ["Cream"], "name": "COFFEE WITH CREAM", "notes": [], "original_name": "CAFF\u00c8 CON PANNA", "price_cents": 150, "source": {"page": 1, "text": "CAFF\u00c8 CON PANNA\nTAZZA PICCOLA\n1,50 \u20ac\nTAZZA GRANDE\n2,00 \u20ac"}, "variants": [{"format": "small", "id": "tazza-piccola", "label": "SMALL CUP", "original_label": "TAZZA PICCOLA", "price_cents": 150, "price_kind": "fixed", "price_text": "1,50 \u20ac", "quantity": null}, {"format": "large", "id": "tazza-grande", "label": "LARGE CUP", "original_label": "TAZZA GRANDE", "price_cents": 200, "price_kind": "fixed", "price_text": "2,00 \u20ac", "quantity": null}]}], "name": "CAFETERIA"}], "source_language": "it", "venue": {"name": null, "subtitle": null}}, "es": {"currency": "EUR", "ingredient_names": {"ingredient_cream": "Nata"}, "issues": [], "language": "es", "menu_id": null, "notes": [], "revision": 1, "schema_version": 2, "sections": [{"description": null, "id": "section_caffetteria", "items": [{"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "CAF\u00c9", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAF\u00c9", "notes": [], "original_name": "CAFF\u00c8", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "CAF\u00c9 AMERICANO", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAF\u00c9 AMERICANO", "notes": [], "original_name": "CAFF\u00c8 AMERICANO", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8 AMERICANO\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [{"id": "milk", "ingredient_ids": ["ingredient_cream"], "reason": "la nata est\u00e1 expl\u00edcitamente listada como ingrediente"}], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna", "image": {"alt": "CAF\u00c9 CON NATA", "url": null}, "ingredient_ids": ["ingredient_cream"], "ingredients": ["Nata"], "name": "CAF\u00c9 CON NATA", "notes": [], "original_name": "CAFF\u00c8 CON PANNA", "price_cents": 150, "source": {"page": 1, "text": "CAFF\u00c8 CON PANNA\nTAZZA PICCOLA\n1,50 \u20ac\nTAZZA GRANDE\n2,00 \u20ac"}, "variants": [{"format": "small", "id": "tazza-piccola", "label": "TAZA PEQUE\u00d1A", "original_label": "TAZZA PICCOLA", "price_cents": 150, "price_kind": "fixed", "price_text": "1,50 \u20ac", "quantity": null}, {"format": "large", "id": "tazza-grande", "label": "TAZA GRANDE", "original_label": "TAZZA GRANDE", "price_cents": 200, "price_kind": "fixed", "price_text": "2,00 \u20ac", "quantity": null}]}], "name": "CAFETER\u00cdA"}], "source_language": "it", "venue": {"name": null, "subtitle": null}}, "fr": {"currency": "EUR", "ingredient_names": {"ingredient_cream": "Cr\u00e8me"}, "issues": [], "language": "fr", "menu_id": null, "notes": [], "revision": 1, "schema_version": 2, "sections": [{"description": null, "id": "section_caffetteria", "items": [{"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "CAF\u00c9", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAF\u00c9", "notes": [], "original_name": "CAFF\u00c8", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "CAF\u00c9 AM\u00c9RICAIN", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAF\u00c9 AM\u00c9RICAIN", "notes": [], "original_name": "CAFF\u00c8 AMERICANO", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8 AMERICANO\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [{"id": "milk", "ingredient_ids": ["ingredient_cream"], "reason": "la cr\u00e8me est explicitement list\u00e9e comme ingr\u00e9dient"}], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna", "image": {"alt": "CAF\u00c9 \u00c0 LA CR\u00c8ME", "url": null}, "ingredient_ids": ["ingredient_cream"], "ingredients": ["Cr\u00e8me"], "name": "CAF\u00c9 \u00c0 LA CR\u00c8ME", "notes": [], "original_name": "CAFF\u00c8 CON PANNA", "price_cents": 150, "source": {"page": 1, "text": "CAFF\u00c8 CON PANNA\nTAZZA PICCOLA\n1,50 \u20ac\nTAZZA GRANDE\n2,00 \u20ac"}, "variants": [{"format": "small", "id": "tazza-piccola", "label": "PETITE TASSE", "original_label": "TAZZA PICCOLA", "price_cents": 150, "price_kind": "fixed", "price_text": "1,50 \u20ac", "quantity": null}, {"format": "large", "id": "tazza-grande", "label": "GRANDE TASSE", "original_label": "TAZZA GRANDE", "price_cents": 200, "price_kind": "fixed", "price_text": "2,00 \u20ac", "quantity": null}]}], "name": "CAF\u00c9T\u00c9RIA"}], "source_language": "it", "venue": {"name": null, "subtitle": null}}, "it": {"currency": "EUR", "ingredient_names": {"ingredient_cream": "Panna"}, "issues": [], "language": "it", "menu_id": null, "notes": [], "revision": 1, "schema_version": 2, "sections": [{"description": null, "id": "section_caffetteria", "items": [{"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe", "image": {"alt": "CAFF\u00c8", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAFF\u00c8", "notes": [], "original_name": "CAFF\u00c8", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_americano", "image": {"alt": "CAFF\u00c8 AMERICANO", "url": null}, "ingredient_ids": [], "ingredients": [], "name": "CAFF\u00c8 AMERICANO", "notes": [], "original_name": "CAFF\u00c8 AMERICANO", "price_cents": 100, "source": {"page": 1, "text": "CAFF\u00c8 AMERICANO\n1,00 \u20ac"}, "variants": [{"format": "regular", "id": "regular", "label": null, "original_label": null, "price_cents": 100, "price_kind": "fixed", "price_text": "1,00 \u20ac", "quantity": null}]}, {"allergens": {"declared": [], "inferred": [{"id": "milk", "ingredient_ids": ["ingredient_cream"], "reason": "la panna \u00e8 esplicitamente elencata come ingrediente"}], "notes": []}, "description": null, "dietary": {"alcohol_free": null, "gluten_free": null, "lactose_free": null, "vegan": null, "vegetarian": null}, "id": "item_caffe_con_panna", "image": {"alt": "CAFF\u00c8 CON PANNA", "url": null}, "ingredient_ids": ["ingredient_cream"], "ingredients": ["Panna"], "name": "CAFF\u00c8 CON PANNA", "notes": [], "original_name": "CAFF\u00c8 CON PANNA", "price_cents": 150, "source": {"page": 1, "text": "CAFF\u00c8 CON PANNA\nTAZZA PICCOLA\n1,50 \u20ac\nTAZZA GRANDE\n2,00 \u20ac"}, "variants": [{"format": "small", "id": "tazza-piccola", "label": "TAZZA PICCOLA", "original_label": "TAZZA PICCOLA", "price_cents": 150, "price_kind": "fixed", "price_text": "1,50 \u20ac", "quantity": null}, {"format": "large", "id": "tazza-grande", "label": "TAZZA GRANDE", "original_label": "TAZZA GRANDE", "price_cents": 200, "price_kind": "fixed", "price_text": "2,00 \u20ac", "quantity": null}]}], "name": "CAFFETTERIA"}], "source_language": "it", "venue": {"name": null, "subtitle": null}}}</script>
+<script>
+'use strict';
+(() => {
+const MENUS = JSON.parse(document.getElementById('menu-data').textContent);
+const LANGS = ["it", "fr", "de", "es", "en"];
+const DEFAULT_LANGUAGE = "it";
+const PAGE_TITLE = "Menu";
+const STORAGE_KEY = "menu-v2-d2ccd098d467390789212dc1";
+const UI_LANGS = ['it','en','fr','de','es'];
+const tr = value => Object.fromEntries(value.split('|').map((label,index) => [UI_LANGS[index],label]));
+const text = {
+ menuTitle:tr('La carta|The menu|La carte|Die Karte|La carta'),
+ mySelection:tr('La mia selezione|My selection|Ma sélection|Meine Auswahl|Mi selección'),searchLabel:tr('Cerca nel menù|Search the menu|Chercher dans la carte|In der Karte suchen|Buscar en la carta'),
+ search:tr('Cerca un piatto, un ingrediente…|Search a dish or ingredient…|Chercher un plat, un ingrédient…|Gericht oder Zutat suchen…|Buscar un plato o ingrediente…'),
+ filters:tr('Filtri|Filters|Filtres|Filter|Filtros'),sort:tr('Ordina|Sort|Trier|Sortieren|Ordenar'),menuOrder:tr('Ordine della carta|Menu order|Ordre de la carte|Reihenfolge der Karte|Orden de la carta'),priceAsc:tr('Prezzo crescente|Price: low to high|Prix croissant|Preis aufsteigend|Precio ascendente'),priceDesc:tr('Prezzo decrescente|Price: high to low|Prix décroissant|Preis absteigend|Precio descendente'),
+ dietTitle:tr('Indicazioni dichiarate|Declared attributes|Indications déclarées|Angegebene Merkmale|Indicaciones declaradas'),budgetTitle:tr('Prezzo per proposta|Price per item|Prix par proposition|Preis pro Angebot|Precio por propuesta'),maxPrice:tr('Fino a|Up to|Jusqu’à|Bis|Hasta'),anyPrice:tr('Qualsiasi prezzo|Any price|Tous les prix|Jeder Preis|Cualquier precio'),formatTitle:tr('Formato|Format|Format|Format|Formato'),
+ filterNote:tr('Le caratteristiche non dichiarate restano sconosciute.|Undeclared attributes remain unknown.|Les caractéristiques non déclarées restent inconnues.|Nicht angegebene Merkmale bleiben unbekannt.|Las características no declaradas son desconocidas.'),reset:tr('Azzera filtri|Reset filters|Réinitialiser|Filter zurücksetzen|Restablecer filtros'),
+ emptyTitle:tr('Nessuna proposta, per ora.|No matches, for now.|Aucune proposition pour le moment.|Noch keine Treffer.|Sin resultados, por ahora.'),emptyText:tr('Puoi allargare la ricerca o togliere un filtro.|Try a broader search or remove a filter.|Élargissez la recherche ou retirez un filtre.|Erweitern Sie die Suche oder entfernen Sie einen Filter.|Amplía la búsqueda o elimina un filtro.'),showAll:tr('Torna alla carta completa|Back to the full menu|Revenir à toute la carte|Zur ganzen Karte|Volver a toda la carta'),
+ selectionCaption:tr('Una lista personale. Nessun ordine viene inviato.|A personal list. No order is sent.|Une liste personnelle. Aucune commande envoyée.|Eine persönliche Liste. Keine Bestellung wird gesendet.|Una lista personal. No se envía ningún pedido.'),
+ allergyNote:tr('Allergie e intolleranze: chiedi al personale. Le indicazioni riportate non garantiscono l’assenza di contaminazioni.|For allergies and intolerances, ask staff. Labels do not guarantee the absence of cross-contact.|Pour les allergies et intolérances, consultez le personnel. Les indications ne garantissent pas l’absence de contamination croisée.|Bei Allergien und Unverträglichkeiten fragen Sie das Personal. Angaben schließen Kreuzkontaminationen nicht aus.|Para alergias e intolerancias, consulta al personal. Las indicaciones no garantizan la ausencia de contaminación cruzada.'),
+ compare:tr('Confronta|Compare|Comparer|Vergleichen|Comparar'),comparison:tr('Il confronto|The comparison|La comparaison|Der Vergleich|La comparación'),compareNote:tr('Prezzi, ingredienti e indicazioni riportati nella carta.|Prices, ingredients and attributes listed on the menu.|Prix, ingrédients et indications figurant à la carte.|Preise, Zutaten und Angaben aus der Karte.|Precios, ingredientes e indicaciones de la carta.'),
+ selected:tr('nella selezione|selected|sélectionnés|ausgewählt|seleccionados'),ourChoice:tr('La nostra scelta|Our choice|Notre choix|Unsere Auswahl|Nuestra elección'),staffNote:tr('Nomi originali e quantità da confermare con il personale.|Original names and quantities to confirm with staff.|Noms originaux et quantités à confirmer avec le personnel.|Originalnamen und Mengen zur Bestätigung beim Personal.|Nombres originales y cantidades para confirmar con el personal.'),
+ vegetarian:tr('Vegetariano|Vegetarian|Végétarien|Vegetarisch|Vegetariano'),vegan:tr('Vegano|Vegan|Végétalien|Vegan|Vegano'),gluten_free:tr('Senza glutine|Gluten free|Sans gluten|Glutenfrei|Sin gluten'),alcohol_free:tr('Analcolico|Alcohol free|Sans alcool|Alkoholfrei|Sin alcohol'),
+ glass:tr('Calice|Glass|Verre|Glas|Copa'),bottle:tr('Bottiglia|Bottle|Bouteille|Flasche|Botella'),regular:tr('Porzione|Portion|Portion|Portion|Porción'),small:tr('Piccolo|Small|Petit|Klein|Pequeño'),large:tr('Grande|Large|Grand|Groß|Grande'),
+ proposals:tr('proposte|items|propositions|Angebote|propuestas'),from:tr('da|from|à partir de|ab|desde'),add:tr('Aggiungi|Add|Ajouter|Hinzufügen|Añadir'),added:tr('Aggiunto alla selezione|Added to selection|Ajouté à la sélection|Zur Auswahl hinzugefügt|Añadido a la selección'),remove:tr('Rimuovi|Remove|Retirer|Entfernen|Quitar'),close:tr('Chiudi|Close|Fermer|Schließen|Cerrar'),clearSearch:tr('Cancella ricerca|Clear search|Effacer la recherche|Suche löschen|Borrar búsqueda'),
+ ingredients:tr('Ingredienti dichiarati|Listed ingredients|Ingrédients déclarés|Angegebene Zutaten|Ingredientes declarados'),notDeclared:tr('Non dichiarato|Not declared|Non déclaré|Nicht angegeben|No declarado'),chooseFormat:tr('Scegli il formato|Choose a format|Choisir le format|Format wählen|Elige el formato'),
+ comparable:tr('Alternative da confrontare|Alternatives to compare|Alternatives à comparer|Alternativen zum Vergleich|Alternativas para comparar'),shared:tr('In comune|In common|En commun|Gemeinsam|En común'),
+ selectionEmpty:tr('La tua prossima scelta comincia dalla carta.|Your next choice begins with the menu.|Votre prochain choix commence à la carte.|Ihre nächste Wahl beginnt in der Karte.|Tu próxima elección empieza en la carta.'),total:tr('Totale indicativo|Estimated total|Total indicatif|Ungefähre Summe|Total orientativo'),staff:tr('Mostra al personale|Show to staff|Montrer au personnel|Dem Personal zeigen|Mostrar al personal'),
+ price:tr('Prezzo|Price|Prix|Preis|Precio'),attributes:tr('Indicazioni|Attributes|Indications|Merkmale|Indicaciones'),portion:tr('Formato|Format|Format|Format|Formato'),maxCompare:tr('Puoi confrontare al massimo tre proposte.|You can compare up to three items.|Vous pouvez comparer trois propositions au maximum.|Sie können bis zu drei Angebote vergleichen.|Puedes comparar hasta tres propuestas.'),minCompare:tr('Scegli un’altra proposta per confrontare.|Choose another item to compare.|Choisissez une autre proposition à comparer.|Wählen Sie ein weiteres Angebot zum Vergleich.|Elige otra propuesta para comparar.'),
+ within:tr('Entro|Up to|Jusqu’à|Bis|Hasta'),matching:tr('Corrisponde a|Matches|Correspond à|Passt zu|Coincide con'),quantityLimit:tr('Massimo 20 per proposta.|Maximum 20 per item.|Maximum 20 par proposition.|Maximal 20 pro Angebot.|Máximo 20 por propuesta.'),
+ decrease:tr('Riduci quantità|Decrease quantity|Réduire la quantité|Menge verringern|Reducir cantidad'),increase:tr('Aumenta quantità|Increase quantity|Augmenter la quantité|Menge erhöhen|Aumentar cantidad'),
+ matchingFormats:tr('Formati compatibili|Matching formats|Formats correspondants|Passende Formate|Formatos compatibles'),
+};
+Object.assign(text, {
+  lactose_free: tr('Senza lattosio|Lactose free|Sans lactose|Laktosefrei|Sin lactosa'),
+  under: tr('Sotto|Under|Moins de|Unter|Menos de'),
+  previous: tr('Precedente|Previous|Précédent|Zurück|Anterior'),
+  next: tr('Successivo|Next|Suivant|Weiter|Siguiente'),
+  allergens: tr('Allergeni|Allergens|Allergènes|Allergene|Alérgenos'),
+  declaredAllergens: tr('Dichiarati dal locale|Declared by the venue|Déclarés par le restaurant|Vom Lokal angegeben|Declarados por el local'),
+  inferredAllergens: tr('Potenziali, dedotti dagli ingredienti|Potential, inferred from ingredients|Potentiels, déduits des ingrédients|Mögliche, aus Zutaten abgeleitet|Potenciales, deducidos de los ingredientes'),
+  unknownPrice: tr('Prezzo non indicato|Price not listed|Prix non indiqué|Preis nicht angegeben|Precio no indicado'),
+  unavailableTotal: tr('Totale non disponibile|Total unavailable|Total indisponible|Summe nicht verfügbar|Total no disponible'),
+  totalNote: tr('Solo le voci selezionate; eventuali supplementi esclusi.|Selected items only; any additional charges excluded.|Articles sélectionnés uniquement ; suppléments éventuels exclus.|Nur ausgewählte Artikel; eventuelle Zuschläge nicht enthalten.|Solo los artículos seleccionados; posibles suplementos excluidos.'),
+  clearComparison: tr('Azzera confronto|Clear comparison|Effacer la comparaison|Vergleich leeren|Borrar comparación'),
+  notes: tr('Da sapere|Notes|À savoir|Hinweise|Notas'),
+  allergyNote: tr('Per allergie e intolleranze, verifica sempre con il personale. Le deduzioni dagli ingredienti possono essere incomplete o errate. Nessuna indicazione garantisce l’assenza di altri allergeni o contaminazioni.|For allergies and intolerances, always check with staff. Ingredient-based inferences may be incomplete or incorrect. No indication guarantees the absence of other allergens or cross-contact.|En cas d’allergie ou d’intolérance, consultez toujours le personnel. Les déductions peuvent être incomplètes ou erronées. Aucune indication ne garantit l’absence d’autres allergènes ou de contamination croisée.|Bei Allergien und Unverträglichkeiten immer das Personal fragen. Aus Zutaten abgeleitete Angaben können unvollständig oder falsch sein. Keine Angabe garantiert die Abwesenheit weiterer Allergene oder Kreuzkontamination.|Para alergias e intolerancias, consulta siempre al personal. Las deducciones pueden ser incompletas o incorrectas. Ninguna indicación garantiza la ausencia de otros alérgenos o contaminación cruzada.'),
+});
+const allergenLabels = {
+  gluten: tr('Cereali contenenti glutine|Cereals containing gluten|Céréales contenant du gluten|Glutenhaltiges Getreide|Cereales con gluten'),
+  crustaceans: tr('Crostacei|Crustaceans|Crustacés|Krebstiere|Crustáceos'),
+  eggs: tr('Uova|Eggs|Œufs|Eier|Huevos'),
+  fish: tr('Pesce|Fish|Poisson|Fisch|Pescado'),
+  peanuts: tr('Arachidi|Peanuts|Arachides|Erdnüsse|Cacahuetes'),
+  soybeans: tr('Soia|Soybeans|Soja|Soja|Soja'),
+  milk: tr('Latte|Milk|Lait|Milch|Leche'),
+  nuts: tr('Frutta a guscio|Tree nuts|Fruits à coque|Schalenfrüchte|Frutos de cáscara'),
+  celery: tr('Sedano|Celery|Céleri|Sellerie|Apio'),
+  mustard: tr('Senape|Mustard|Moutarde|Senf|Mostaza'),
+  sesame: tr('Sesamo|Sesame|Sésame|Sesam|Sésamo'),
+  sulphites: tr('Solfiti|Sulphites|Sulfites|Sulfite|Sulfitos'),
+  lupin: tr('Lupini|Lupin|Lupin|Lupinen|Altramuces'),
+  molluscs: tr('Molluschi|Molluscs|Mollusques|Weichtiere|Moluscos'),
+};
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const base = MENUS[DEFAULT_LANGUAGE];
+const itemMaps = Object.fromEntries(LANGS.map(lang => [lang, new Map(
+  MENUS[lang].sections.flatMap(section => section.items.map(item => [item.id, {...item, sectionId:section.id}]))
+)]));
+const baseItems = [...itemMaps[DEFAULT_LANGUAGE].values()];
+const fixedPrice = variant => base.currency !== null && variant.price_kind === 'fixed' && Number.isInteger(variant.price_cents);
+const allPrices = baseItems.flatMap(item => item.variants.filter(fixedPrice).map(v => v.price_cents));
+const priceLimit = allPrices.length ? Math.max(...allPrices) : 0;
+const dietKeys = ['vegetarian','vegan','gluten_free','lactose_free','alcohol_free'];
+const availableDiets = dietKeys.filter(key => {
+  const matches = baseItems.filter(item => item.dietary[key] === true).length;
+  return matches > 0 && matches < baseItems.length;
+});
+const availableFormats = [...new Set(baseItems.flatMap(item => item.variants.map(v => v.format)))]
+  .filter(format => !['regular','other'].includes(format) && baseItems.length > 1 &&
+    baseItems.some(item => !item.variants.every(v => v.format === format)));
+const comparableIds = new Set(baseItems.filter(item =>
+  item.ingredients.length || item.variants.some(fixedPrice) || dietKeys.some(key => item.dietary[key] === true)
+).map(item => item.id));
+const features = {
+  search: baseItems.length > 1,
+  categories: base.sections.filter(section => section.name).length > 1,
+  budget: baseItems.length > 1 && new Set(allPrices).size > 1,
+  compare: comparableIds.size > 1,
+};
+const filtersAvailable = features.budget || availableDiets.length > 0 || availableFormats.length > 0;
+let saved = {};
+try {
+  const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) saved = parsed;
+} catch {}
+const state = {
+  lang: LANGS.includes(saved.lang) ? saved.lang : DEFAULT_LANGUAGE,
+  query:'', diets:new Set(), formats:new Set(), budget:null, sort:'menu',
+  compared:new Set(), selection:new Map(), detail:null, variant:null,
+};
+const rowKey = (id, variant) => id + ':' + variant;
+for (const row of Array.isArray(saved.selection) ? saved.selection : []) {
+  if (!row || typeof row !== 'object' || !Number.isInteger(row.qty) || row.qty < 1 || row.qty > 20) continue;
+  const item = itemMaps[DEFAULT_LANGUAGE].get(row.id);
+  if (item?.variants.some(v => v.id === row.variant)) {
+    state.selection.set(rowKey(row.id,row.variant), {id:row.id, variant:row.variant, qty:row.qty});
+  }
+}
+const local = entry => entry?.[state.lang] || entry?.[state.lang.split('-')[0]] || entry?.en || '';
+const t = key => local(text[key]) || key;
+const menu = () => MENUS[state.lang];
+const itemById = id => itemMaps[state.lang].get(id);
+const items = () => [...itemMaps[state.lang].values()];
+const allergenName = id => local(allergenLabels[id]) || id;
+const ingredientText = item => item.ingredients.join(', ');
+const count = () => [...state.selection.values()].reduce((sum,row) => sum + row.qty,0);
+const chosen = id => [...state.selection.values()].filter(row => row.id === id).reduce((sum,row) => sum + row.qty,0);
+function money(cents) {
+  const options = base.currency ? {style:'currency',currency:base.currency} : {minimumFractionDigits:2,maximumFractionDigits:2};
+  try { return new Intl.NumberFormat(state.lang, options).format(cents / 100); }
+  catch { return new Intl.NumberFormat('en', options).format(cents / 100); }
+}
+function priceText(variant) {
+  if (variant.price_kind === 'fixed') return money(variant.price_cents);
+  if (variant.price_text) return variant.price_text;
+  return variant.price_cents === null ? t('unknownPrice') : money(variant.price_cents);
+}
+function variantLabel(item, variant, original=false) {
+  const label = original ? variant.original_label : variant.label;
+  if (label) return label;
+  if (variant.quantity) return `${variant.quantity.value} ${variant.quantity.unit}`;
+  return item.variants.length > 1 ? t(variant.format) : '';
+}
+function total() {
+  if (!state.selection.size || !base.currency) return null;
+  let value = 0;
+  for (const row of state.selection.values()) {
+    const variant = itemById(row.id).variants.find(v => v.id === row.variant);
+    if (!fixedPrice(variant)) return null;
+    value += variant.price_cents * row.qty;
+  }
+  return value;
+}
+function persist() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({lang:state.lang,selection:[...state.selection.values()]})); } catch {}
+}
+function notify(message) {
+  $('toast').textContent = message;
+  $('toast').hidden = false;
+  clearTimeout(notify.timer);
+  notify.timer = setTimeout(() => {$('toast').hidden = true;}, 2500);
+}
+const dietAliases = {
+  vegetarian:['vegetariano','vegetariana','vegetariani','vegetarian','vegetarien','vegetarienne','vegetarisch'],
+  vegan:['vegano','vegana','vegani','vegan','vegetalien','vegetalienne','vegane'],
+  gluten_free:['senza glutine','gluten free','sans gluten','glutenfrei','sin gluten'],
+  lactose_free:['senza lattosio','lactose free','sans lactose','laktosefrei','sin lactosa'],
+  alcohol_free:['analcolico','analcolica','analcolici','alcohol free','non alcoholic','sans alcool','alkoholfrei','sin alcohol'],
+};
+function queryParts() {
+  let value = norm(state.query), budget = null, exclusive = false;
+  const match = value.match(/(?:sotto|entro|under|below|less than|up to|meno di|moins de|sous|jusqu'a|unter|bis|menos de|hasta)\s*(?:([€$£])\s*)?(\d+(?:[.,]\d{1,2})?)(?![\d.,])(?:\s*(euro?s?|eur|usd|gbp|€|\$|£))?(?=\s|$)/);
+  if (match && base.currency && allPrices.length) {
+    const named = match[1] || match[3];
+    const unit = named && ({'€':'EUR','euro':'EUR','euros':'EUR','eur':'EUR','$':'USD','usd':'USD','£':'GBP','gbp':'GBP'})[named];
+    if (!named || unit === base.currency) {
+      budget = Math.round(Number(match[2].replace(',','.')) * 100);
+      exclusive = /^(sotto|under|below|less than|meno di|moins de|sous|unter|menos de)/.test(match[0]);
+      value = value.replace(match[0], ' ');
+    }
+  }
+  const diets = new Set();
+  for (const [key, aliases] of Object.entries(dietAliases)) {
+    for (const alias of aliases) {
+      const pattern = new RegExp('(^|\\s)' + alias + '(?=\\s|$)', 'g');
+      if (pattern.test(value)) { diets.add(key); value = value.replace(pattern,' '); }
+    }
+  }
+  const stops = new Set(['qualcosa','con','al','alla','di','da','un','una','e','the','with','a','an','and','something','de','du','au','avec','et','mit','und','etwas','y','algo']);
+  const words = value.split(/\s+/).filter(word => word && !stops.has(word));
+  return {budget,exclusive,diets,words};
+}
+function criteria() {
+  const parsed = queryParts(), manual = state.budget ?? Infinity;
+  return {...parsed, budget:Math.min(manual,parsed.budget ?? Infinity),
+    exclusive:parsed.exclusive && parsed.budget <= manual,
+    diets:new Set([...state.diets,...parsed.diets])};
+}
+function eligibleVariants(item, c=criteria()) {
+  return item.variants.filter(variant =>
+    (!state.formats.size || state.formats.has(variant.format)) &&
+    (!Number.isFinite(c.budget) || (fixedPrice(variant) &&
+      (c.exclusive ? variant.price_cents < c.budget : variant.price_cents <= c.budget))));
+}
+const haystacks = new Map(baseItems.map(item => [item.id, norm(LANGS.flatMap(lang => {
+  const value = itemMaps[lang].get(item.id);
+  const section = MENUS[lang].sections.find(s => s.id === value.sectionId);
+  return [value.name,value.original_name,value.description,...value.ingredients,section.name,
+    ...value.variants.map(v => v.label)];
+}).join(' '))]));
+function matching(item, c=criteria()) {
+  return eligibleVariants(item,c).length > 0 &&
+    [...c.diets].every(key => item.dietary[key] === true) &&
+    c.words.every(word => haystacks.get(item.id).includes(word));
+}
+function priceHTML(item) {
+  const variants = eligibleVariants(item), shown = variants.length ? variants : item.variants;
+  if (shown.length === 1) {
+    const variant = shown[0];
+    const label = state.formats.size ? variantLabel(item,variant) : '';
+    return `${label ? `<span class="from">${esc(label)}</span>` : ''}${esc(priceText(variant))}`;
+  }
+  if (shown.every(fixedPrice)) {
+    const prices = shown.map(v => v.price_cents), low = Math.min(...prices);
+    return `${new Set(prices).size > 1 ? `<span class="from">${esc(t('from'))}</span>` : ''}${esc(money(low))}`;
+  }
+  return shown.map(v => `${variantLabel(item,v) ? esc(variantLabel(item,v)) + ': ' : ''}${esc(priceText(v))}`).join('<br>');
+}
+function tags(item) {
+  return dietKeys.filter(key => item.dietary[key] === true)
+    .map(key => `<span class="tag">${esc(t(key))}</span>`).join('');
+}
+function itemHTML(item) {
+  const qty = chosen(item.id);
+  return `<article class="item ${item.image.url ? 'featured' : ''}" data-item="${esc(item.id)}">
+    ${item.image.url ? `<button class="photo" data-detail="${esc(item.id)}" aria-label="${esc(item.name)}"><img src="${esc(item.image.url)}" alt="${esc(item.image.alt)}" width="900" height="550" loading="lazy"><span class="zoom" aria-hidden="true">+</span></button>` : ''}
+    <div class="item-heading"><h3><button class="name-button" data-detail="${esc(item.id)}">${esc(item.name)}</button></h3><div class="price">${priceHTML(item)}</div></div>
+    ${item.description ? `<p class="ingredients">${esc(item.description)}</p>` : ''}
+    ${item.ingredients.length ? `<p class="ingredients">${esc(ingredientText(item))}</p>` : ''}
+    ${tags(item) ? `<div class="tags">${tags(item)}</div>` : ''}
+    <div class="item-tools">
+      ${features.compare && comparableIds.has(item.id) ? `<label class="compare-label"><input type="checkbox" data-compare="${esc(item.id)}" aria-label="${esc(t('compare')+': '+item.name)}" ${state.compared.has(item.id) ? 'checked' : ''}>${esc(t('compare'))}</label>` : ''}
+      <button class="add-button ${qty ? 'selected' : ''}" data-add="${esc(item.id)}" aria-label="${esc(t('add') + ': ' + item.name)}" title="${esc(t('add'))}">${qty || '+'}</button>
+    </div>
+  </article>`;
+}
+function sortPrice(item) {
+  const prices = eligibleVariants(item).filter(fixedPrice).map(v => v.price_cents);
+  return prices.length ? Math.min(...prices) : null;
+}
+function renderMenu() {
+  const visible = items().filter(item => matching(item));
+  $('results').textContent = `${visible.length} / ${baseItems.length} ${t('proposals')}`;
+  $('empty').hidden = visible.length > 0;
+  $('search-clear').hidden = !state.query;
+  $('menu-root').innerHTML = menu().sections.map((section,index) => {
+    const group = visible.filter(item => item.sectionId === section.id);
+    if (!group.length) return '';
+    if (state.sort !== 'menu') group.sort((a,b) => {
+      const first = sortPrice(a), second = sortPrice(b);
+      if (first === null) return second === null ? 0 : 1;
+      if (second === null) return -1;
+      return (first - second) * (state.sort === 'asc' ? 1 : -1);
+    });
+    return `<section class="section" id="section-${esc(section.id)}" ${section.name ? `aria-labelledby="heading-${esc(section.id)}"` : ''}>
+      ${section.name ? `<div class="section-head"><span class="section-num">${String(index+1).padStart(2,'0')}</span><h2 id="heading-${esc(section.id)}">${esc(section.name)}</h2><span>${group.length}</span></div>` : ''}
+      ${section.description ? `<p class="section-note">${esc(section.description)}</p>` : ''}
+      <div class="grid">${group.map(itemHTML).join('')}</div></section>`;
+  }).join('');
+  $('categories').querySelectorAll('a').forEach(anchor => {
+    anchor.hidden = !visible.some(item => item.sectionId === anchor.dataset.category);
+  });
+  renderActive();
+  observeSections();
+}
+function renderActive() {
+  const chips = [];
+  for (const key of state.diets) chips.push({type:'diet',key,label:t(key)});
+  for (const key of state.formats) chips.push({type:'format',key,label:t(key)});
+  if (state.budget !== null) chips.push({type:'budget',label:t('within')+' '+money(state.budget)});
+  const parsed = queryParts();
+  if (parsed.budget !== null) chips.push({type:'query-budget',label:t(parsed.exclusive ? 'under' : 'within')+' '+money(parsed.budget)});
+  for (const key of parsed.diets) chips.push({type:'query-diet',key,label:t(key)});
+  if (parsed.words.length) chips.push({type:'query-text',label:parsed.words.join(' ')});
+  $('active-filters').innerHTML = chips.map(chip => `<button class="active-filter" data-remove-filter="${chip.type}" data-key="${chip.key || ''}" aria-label="${esc(t('remove')+': '+chip.label)}">${esc(chip.label)}<span aria-hidden="true">&times;</span></button>`).join('');
+  $('workbench').hidden = !filtersAvailable && !features.budget && !chips.length;
+}
+function renderFilters() {
+  $('diet-field').hidden = !availableDiets.length;
+  $('format-field').hidden = !availableFormats.length;
+  $('budget-field').hidden = !features.budget;
+  $('filter-trigger').hidden = !filtersAvailable;
+  $('sort-control').hidden = !features.budget;
+  $('diet-filters').innerHTML = availableDiets.map(key => `<label><input type="checkbox" data-diet="${key}" ${state.diets.has(key) ? 'checked' : ''}>${esc(t(key))}</label>`).join('');
+  $('format-filters').innerHTML = availableFormats.map(key => `<label><input type="checkbox" data-format="${key}" ${state.formats.has(key) ? 'checked' : ''}>${esc(t(key))}</label>`).join('');
+  $('budget').max = priceLimit;
+  $('budget').value = state.budget ?? priceLimit;
+  $('budget-output').textContent = state.budget === null ? t('anyPrice') : money(state.budget);
+}
+let sectionObserver;
+function observeSections() {
+  sectionObserver?.disconnect();
+  sectionObserver = new IntersectionObserver(entries => {
+    const entry = entries.find(value => value.isIntersecting);
+    if (!entry) return;
+    $('categories').querySelectorAll('a').forEach(anchor => {
+      const active = anchor.hash === '#' + entry.target.id;
+      anchor.classList.toggle('active',active);
+      if (active) anchor.setAttribute('aria-current','location');
+      else anchor.removeAttribute('aria-current');
+    });
+  }, {rootMargin:'-140px 0px -55% 0px',threshold:0});
+  document.querySelectorAll('.section').forEach(section => sectionObserver.observe(section));
+}
+let previousFocus = null;
+function openDialog(id) {
+  const open = document.querySelector('dialog[open]');
+  if (open?.id === id) return;
+  if (!open) previousFocus = document.activeElement;
+  else open.close();
+  $(id).showModal();
+  $(id).scrollTop = 0;
+}
+for (const dialog of document.querySelectorAll('dialog')) {
+  dialog.addEventListener('click',event => {
+    if (event.target !== dialog) return;
+    const rect = dialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+  });
+  dialog.addEventListener('close',() => {
+    if (document.querySelector('dialog[open]')) return;
+    if (previousFocus?.isConnected) previousFocus.focus();
+    else document.querySelector('[data-open-selection]').focus();
+  });
+}
+function allergenHTML(item) {
+  const value = item.allergens;
+  if (!value.declared.length && !value.inferred.length && !value.notes.length) return '';
+  return `<section class="allergens" aria-label="${esc(t('allergens'))}">
+    ${value.declared.length ? `<h3>${esc(t('declaredAllergens'))}</h3><p>${value.declared.map(id => esc(allergenName(id))).join(', ')}</p>` : ''}
+    ${value.inferred.length ? `<h3>${esc(t('inferredAllergens'))}</h3><ul class="allergen-list">${value.inferred.map(finding => `<li><strong>${esc(allergenName(finding.id))}</strong><p class="allergen-reason">${esc(finding.reason)}</p></li>`).join('')}</ul>` : ''}
+    ${value.notes.map(note => `<p class="diet-notes">${esc(note)}</p>`).join('')}
+  </section>`;
+}
+function openDetail(id) {
+  const item = itemById(id);
+  if (!item) return;
+  state.detail = id;
+  state.variant = (eligibleVariants(item)[0] || item.variants[0]).id;
+  renderDetail();
+  openDialog('detail-dialog');
+  $('detail-dialog').scrollTop = 0;
+  $('detail-dialog').querySelector('.modal-close').focus();
+}
+function renderDetail() {
+  const item = itemById(state.detail);
+  const variant = item.variants.find(v => v.id === state.variant);
+  const peers = items().filter(other => other.id !== item.id && other.sectionId === item.sectionId && matching(other))
+    .map(other => ({item:other,shared:other.ingredient_ids.filter(id => item.ingredient_ids.includes(id))}))
+    .filter(peer => peer.shared.length >= 2).sort((a,b) => b.shared.length - a.shared.length).slice(0,2);
+  const category = menu().sections.find(section => section.id === item.sectionId);
+  $('detail-root').innerHTML = `
+    ${item.image.url ? `<img class="detail-photo" src="${esc(item.image.url)}" alt="${esc(item.image.alt)}">` : ''}
+    <div class="detail-content">
+      ${category.name ? `<p class="eyebrow">${esc(category.name)}</p>` : ''}
+      <h2 id="detail-title">${esc(item.name)}</h2>
+      ${item.name !== item.original_name ? `<p class="ingredients">${esc(item.original_name)}</p>` : ''}
+      <div class="detail-price">${esc(priceText(variant))}</div>
+      ${item.description ? `<p>${esc(item.description)}</p>` : ''}
+      ${item.ingredients.length ? `<h3>${esc(t('ingredients'))}</h3><p class="ingredients">${esc(ingredientText(item))}</p>` : ''}
+      ${tags(item) ? `<div class="tags">${tags(item)}</div>` : ''}
+      ${item.variants.length > 1 ? `<fieldset class="variant-options"><legend>${esc(t('chooseFormat'))}</legend>${item.variants.map(v => `<label class="variant-option"><input type="radio" name="variant" value="${esc(v.id)}" ${v.id === state.variant ? 'checked' : ''}><span>${esc(variantLabel(item,v))}</span><span>${esc(priceText(v))}</span></label>`).join('')}</fieldset>` : variantLabel(item,variant) ? `<p class="variant-note">${esc(variantLabel(item,variant))}</p>` : ''}
+      ${allergenHTML(item)}
+      ${item.notes.length ? `<h3>${esc(t('notes'))}</h3>${item.notes.map(note => `<p>${esc(note)}</p>`).join('')}` : ''}
+      <div class="detail-actions"><button class="primary" id="detail-add">${esc(t('add'))}</button></div>
+      ${peers.length ? `<div class="suggestions"><h3>${esc(t('comparable'))}</h3>${peers.map(peer => `<button data-detail="${esc(peer.item.id)}"><strong>${esc(peer.item.name)} &nearr;</strong><small>${esc(t('shared')+': '+peer.shared.map(id => menu().ingredient_names[id]).join(', '))}</small></button>`).join('')}</div>` : ''}
+      <p class="detail-warning">${esc(t('allergyNote'))}</p>
+    </div>`;
+}
+function updateAddButtons() {
+  document.querySelectorAll('[data-add]').forEach(button => {
+    const qty = chosen(button.dataset.add);
+    button.classList.toggle('selected',qty > 0);
+    button.textContent = qty || '+';
+  });
+}
+function addItem(id, variantId) {
+  const item = itemById(id);
+  if (!item) return;
+  if (!variantId && item.variants.length > 1) { openDetail(id); return; }
+  const variant = item.variants.find(v => v.id === (variantId || item.variants[0].id));
+  if (!variant) return;
+  const key = rowKey(id,variant.id), existing = state.selection.get(key);
+  if (existing?.qty >= 20) { notify(t('quantityLimit')); return; }
+  state.selection.set(key,{id,variant:variant.id,qty:(existing?.qty || 0)+1});
+  persist();
+  renderSelection();
+  updateAddButtons();
+  notify(t('added'));
+}
+function selectedHTML() {
+  if (!state.selection.size) return `<p class="side-empty">${esc(t('selectionEmpty'))}</p>`;
+  return [...state.selection].map(([key,row]) => {
+    const item = itemById(row.id), variant = item.variants.find(v => v.id === row.variant);
+    return `<div class="selected-row"><div class="row-top"><div><h3>${esc(item.name)}</h3>${variantLabel(item,variant) ? `<p class="variant-note">${esc(variantLabel(item,variant))}</p>` : ''}</div><button class="remove" data-remove-row="${esc(key)}" aria-label="${esc(t('remove')+': '+item.name)}" title="${esc(t('remove'))}">&times;</button></div>
+      <div class="row-bottom"><div class="stepper"><button data-qty="${esc(key)}" data-delta="-1" aria-label="${esc(t('decrease')+': '+item.name)}" title="${esc(t('decrease'))}">&minus;</button><output>${row.qty}</output><button data-qty="${esc(key)}" data-delta="1" aria-label="${esc(t('increase')+': '+item.name)}" title="${esc(t('increase'))}" ${row.qty >= 20 ? 'disabled' : ''}>+</button></div><span class="row-price">${esc(fixedPrice(variant) ? money(variant.price_cents*row.qty) : priceText(variant))}</span></div></div>`;
+  }).join('');
+}
+function summaryHTML() {
+  if (!state.selection.size) return '';
+  const amount = total();
+  return `<div class="total-row">${amount === null ? `<span>${esc(t('unavailableTotal'))}</span>` : `<span>${esc(t('total'))}</span><strong>${esc(money(amount))}</strong>`}</div>
+    <button class="primary full" data-show-staff>${esc(t('staff'))}</button>
+    ${amount !== null ? `<p class="selection-notes">${esc(t('totalNote'))}</p>` : ''}`;
+}
+function renderSelection() {
+  const html = selectedHTML(), summary = summaryHTML(), amount = total();
+  $('side-items').innerHTML = html;
+  $('selection-items').innerHTML = html;
+  $('side-summary').innerHTML = summary;
+  $('selection-summary').innerHTML = summary;
+  document.querySelectorAll('.selection-count').forEach(element => element.textContent = count());
+  document.querySelectorAll('.selection-total').forEach(element => {
+    element.textContent = amount !== null ? money(amount) : state.selection.size ? t('unavailableTotal') : '';
+  });
+}
+function renderStaff() {
+  $('staff-root').innerHTML = [...state.selection.values()].map(row => {
+    const item = itemById(row.id), variant = item.variants.find(v => v.id === row.variant);
+    return `<div class="staff-item"><span class="staff-qty">${row.qty}&times;</span><div><h3>${esc(item.original_name)}</h3>${variantLabel(item,variant,true) ? `<p>${esc(variantLabel(item,variant,true))}</p>` : ''}${item.name !== item.original_name ? `<p>${esc(item.name)}</p>` : ''}</div></div>`;
+  }).join('');
+}
+function renderCompareDock() {
+  $('compare-dock').hidden = !state.compared.size;
+  $('compare-summary').textContent = state.compared.size+' / 3';
+  $('compare-open').disabled = state.compared.size < 2;
+  document.querySelectorAll('[data-compare]').forEach(input => input.checked = state.compared.has(input.dataset.compare));
+}
+function renderComparison() {
+  const compared = [...state.compared].map(itemById), rows = [];
+  if (compared.some(item => item.variants.some(v => v.price_cents !== null || v.price_text))) {
+    rows.push({label:t('price'),values:compared.map(item => item.variants.map(v => `${variantLabel(item,v) ? esc(variantLabel(item,v))+': ' : ''}<span class="price">${esc(priceText(v))}</span>`).join('<br>'))});
+  }
+  if (compared.some(item => item.ingredients.length)) {
+    rows.push({label:t('ingredients'),values:compared.map(item => esc(ingredientText(item) || t('notDeclared')))});
+  }
+  if (compared.some(item => tags(item))) {
+    rows.push({label:t('attributes'),values:compared.map(item => tags(item) || esc(t('notDeclared')))});
+  }
+  if (compared.some(item => allergenHTML(item))) {
+    rows.push({label:t('allergens'),values:compared.map(item => allergenHTML(item) || esc(t('notDeclared')))});
+  }
+  $('comparison-root').innerHTML = `<table class="comparison-table"><thead><tr><th></th>${compared.map(item => `<th scope="col">${esc(item.name)}<button class="compare-remove" data-remove-compare="${esc(item.id)}">${esc(t('remove'))}</button></th>`).join('')}</tr></thead><tbody>${rows.map(row => `<tr><th scope="row">${esc(row.label)}</th>${row.values.map(value => `<td class="${new Set(row.values).size > 1 ? 'different' : ''}">${value}</td>`).join('')}</tr>`).join('')}<tr><th></th>${compared.map(item => `<td><button class="secondary" data-compare-add="${esc(item.id)}">${esc(t('add'))}</button></td>`).join('')}</tr></tbody></table>
+    ${compared.some(item => allergenHTML(item)) ? `<p class="detail-warning">${esc(t('allergyNote'))}</p>` : ''}`;
+}
+function translate() {
+  document.documentElement.lang = state.lang;
+  const title = menu().venue.name || PAGE_TITLE;
+  document.title = title+' · '+t('menuTitle');
+  $('venue-name').textContent = title;
+  $('venue-name').classList.toggle('long-name',title.length > 18 && title.length <= 36);
+  $('venue-name').classList.toggle('very-long-name',title.length > 36);
+  $('venue-subtitle').textContent = menu().venue.subtitle || '';
+  $('venue-subtitle').hidden = !menu().venue.subtitle;
+  $('footer-name').textContent = menu().venue.name || '';
+  $('footer-notes').innerHTML = menu().notes.map(note => `<p>${esc(note)}</p>`).join('');
+  document.querySelectorAll('[data-t]').forEach(element => element.textContent = t(element.dataset.t));
+  $('language').value = state.lang;
+  $('language').setAttribute('aria-label',({it:'Lingua',en:'Language',fr:'Langue',de:'Sprache',es:'Idioma'})[state.lang] || 'Language');
+  for (const option of $('language').options) {
+    try { option.textContent = new Intl.DisplayNames([option.value],{type:'language'}).of(option.value); }
+    catch { option.textContent = option.value; }
+  }
+  $('search').placeholder = t('search');
+  $('search-clear').setAttribute('aria-label',t('clearSearch'));
+  $('search-clear').title = t('clearSearch');
+  $('sort').setAttribute('aria-label',t('sort'));
+  document.querySelectorAll('[data-open-selection]').forEach(button => button.setAttribute('aria-label',t('mySelection')));
+  $('budget').setAttribute('aria-label',t('maxPrice'));
+  $('compare-clear').setAttribute('aria-label',t('clearComparison'));
+  $('compare-clear').title = t('clearComparison');
+  document.querySelectorAll('[data-close]').forEach(button => {button.setAttribute('aria-label',t('close'));button.title = t('close');});
+  document.querySelectorAll('[data-scroll-compare]').forEach(button => {
+    const label = t(button.dataset.scrollCompare === '1' ? 'next' : 'previous');
+    button.setAttribute('aria-label',label);button.title = label;
+  });
+  $('categories').innerHTML = menu().sections.filter(section => section.name)
+    .map(section => `<a href="#section-${esc(section.id)}" data-category="${esc(section.id)}">${esc(section.name)}</a>`).join('');
+  $('categories').hidden = !features.categories;
+  $('categories').setAttribute('aria-label',t('menuTitle'));
+  $('search-box').hidden = !features.search;
+  $('nav-inner').hidden = !features.categories && !features.search;
+  renderFilters();renderMenu();renderSelection();renderCompareDock();
+  if ($('detail-dialog').open) renderDetail();
+  if ($('compare-dialog').open) renderComparison();
+  if ($('staff-dialog').open) renderStaff();
+}
+function reset() {
+  state.query = '';state.diets.clear();state.formats.clear();state.budget = null;
+  $('search').value = '';
+  renderFilters();renderMenu();
+}
+function removeQueryPart(type,key) {
+  const parsed = queryParts();
+  if (type === 'query-budget') parsed.budget = null;
+  if (type === 'query-diet') parsed.diets.delete(key);
+  if (type === 'query-text') parsed.words = [];
+  state.query = [...parsed.words,...[...parsed.diets].map(key => text[key].en),
+    ...(parsed.budget !== null ? [(parsed.exclusive ? 'under ' : 'up to ')+(parsed.budget/100)] : [])].join(' ');
+  $('search').value = state.query;
+}
+$('search').addEventListener('input',event => {state.query = event.target.value;renderMenu();});
+$('search-clear').addEventListener('click',() => {state.query = '';$('search').value = '';renderMenu();$('search').focus();});
+$('language').addEventListener('change',event => {state.lang = event.target.value;persist();translate();});
+$('sort').addEventListener('change',event => {state.sort = event.target.value;renderMenu();});
+$('budget').addEventListener('input',event => {
+  const amount = Number(event.target.value);
+  state.budget = amount === priceLimit ? null : amount;
+  $('budget-output').textContent = state.budget === null ? t('anyPrice') : money(state.budget);
+  renderMenu();
+});
+$('filter-trigger').addEventListener('click',() => {
+  const open = $('filter-panel').hidden;
+  $('filter-panel').hidden = !open;
+  $('filter-trigger').setAttribute('aria-expanded',String(open));
+  $('filter-trigger').lastElementChild.textContent = open ? '−' : '+';
+});
+$('reset-filters').addEventListener('click',reset);
+$('empty-reset').addEventListener('click',() => {reset();if (features.search) $('search').focus();});
+$('compare-clear').addEventListener('click',() => {state.compared.clear();renderCompareDock();});
+$('compare-open').addEventListener('click',() => {
+  if (state.compared.size < 2) return;
+  renderComparison();openDialog('compare-dialog');
+});
+document.addEventListener('change',event => {
+  const target = event.target;
+  if (target.dataset.diet) {
+    target.checked ? state.diets.add(target.dataset.diet) : state.diets.delete(target.dataset.diet);
+    renderMenu();
+  }
+  if (target.dataset.format) {
+    target.checked ? state.formats.add(target.dataset.format) : state.formats.delete(target.dataset.format);
+    renderMenu();
+  }
+  if (target.dataset.compare) {
+    if (target.checked && state.compared.size >= 3) {target.checked = false;notify(t('maxCompare'));return;}
+    target.checked ? state.compared.add(target.dataset.compare) : state.compared.delete(target.dataset.compare);
+    renderCompareDock();
+  }
+  if (target.name === 'variant') {
+    state.variant = target.value;
+    const variant = itemById(state.detail).variants.find(v => v.id === state.variant);
+    $('detail-dialog').querySelector('.detail-price').textContent = priceText(variant);
+  }
+});
+document.addEventListener('click',event => {
+  const button = event.target.closest('button');
+  if (!button || button.disabled) return;
+  if (button.dataset.close) {$(button.dataset.close).close();return;}
+  if (button.dataset.scrollCompare) {$('comparison-root').scrollBy({left:Number(button.dataset.scrollCompare)*220});return;}
+  if (button.hasAttribute('data-open-selection')) {renderSelection();openDialog('selection-dialog');return;}
+  if (button.dataset.detail) {openDetail(button.dataset.detail);return;}
+  if (button.dataset.add) {addItem(button.dataset.add);return;}
+  if (button.id === 'detail-add') {addItem(state.detail,state.variant);return;}
+  if (button.dataset.compareAdd) {
+    const id = button.dataset.compareAdd;
+    if (itemById(id).variants.length > 1) openDetail(id);
+    else addItem(id);
+    return;
+  }
+  if (button.dataset.removeCompare) {
+    state.compared.delete(button.dataset.removeCompare);renderCompareDock();
+    if (state.compared.size < 2) $('compare-dialog').close();
+    else renderComparison();
+    return;
+  }
+  if (button.dataset.removeFilter) {
+    const type = button.dataset.removeFilter;
+    if (type === 'diet') state.diets.delete(button.dataset.key);
+    if (type === 'format') state.formats.delete(button.dataset.key);
+    if (type === 'budget') state.budget = null;
+    if (type.startsWith('query-')) removeQueryPart(type,button.dataset.key);
+    renderFilters();renderMenu();return;
+  }
+  if (button.dataset.qty || button.dataset.removeRow) {
+    const key = button.dataset.qty || button.dataset.removeRow;
+    const container = button.closest('#selection-dialog') ? 'selection-items' : 'side-items';
+    const row = state.selection.get(key);
+    if (button.dataset.removeRow) state.selection.delete(key);
+    else if (row) {
+      row.qty = Math.min(20,row.qty + Number(button.dataset.delta));
+      if (row.qty <= 0) state.selection.delete(key);
+    }
+    persist();renderSelection();updateAddButtons();
+    const equivalent = [...$(container).querySelectorAll('[data-qty]')]
+      .find(el => el.dataset.qty === key && el.dataset.delta === button.dataset.delta);
+    if (equivalent && !equivalent.disabled) equivalent.focus();
+    else if ($('selection-dialog').open) $('selection-dialog').querySelector('.modal-close').focus();
+    return;
+  }
+  if (button.hasAttribute('data-show-staff')) {renderStaff();openDialog('staff-dialog');}
+});
+// An unavailable optional image must not leave a broken image or empty frame.
+document.addEventListener('error',event => {
+  if (!(event.target instanceof HTMLImageElement)) return;
+  const article = event.target.closest('.item');
+  if (article) article.classList.remove('featured');
+  (event.target.closest('.photo') || event.target).remove();
+},true);
+translate();
+const navigation = document.querySelector('.navigation');
+new ResizeObserver(() => {
+  const offset = navigation.getBoundingClientRect().height + 20;
+  document.documentElement.style.scrollPaddingTop = offset+'px';
+  document.documentElement.style.setProperty('--navigation-offset',offset+'px');
+}).observe(navigation);
+})();
+</script>
+</body>
+</html>
